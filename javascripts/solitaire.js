@@ -451,7 +451,7 @@ $(function () {
         } else if ((CARD_OBJECTS[cardID].rank == CARD_RANKS.King) && tableauEmpty) {
             addable = true;
         }
-        return true
+        return addable
     }
 
     function isFromTableau(cardID, index) {
