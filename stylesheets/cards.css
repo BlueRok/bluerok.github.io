@@ -1,6 +1,7 @@
 .card {
     position: absolute;
     user-select: none;
+    -webkit-touch-callout: none;
 }
 
 #solitaireGame {

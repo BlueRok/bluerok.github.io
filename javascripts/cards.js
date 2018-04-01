@@ -125,7 +125,7 @@ function generateCards(area) {
             DECK.cardIDs[DECK.cardIDs.length] = cardID;
         }
     }
-    //shuffle();
+    shuffle();
 }
 
 function setCardImageSize(width) {
