@@ -1,84 +1,68 @@
 <!Doctype html>
 <html>
     <head>
-        <title>BlueRok</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet1.css">
-        <script type="text/javascript" src="javascripts/jquery-3.1.0.min.js"></script>
-        <script type="text/javascript" src="javascripts/javascript1.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>BlueRok</h1>
-            <nav>
-                <ul>
-                    <li id="current-page">Home</li>
-                    <li><a href="aboutUs.html">About Us</a></li>
-                    <li class="dropdown-menu">Products<img src="images/arrow_down.png" alt="Down Arrow" align="right" style="margin: 3px 15px 0px -40px">
-                        <ul class="sub1">
-                            <li>Games<img src="images/arrow_right.png" alt="Right Arrow" align="right" style="margin: 2px 12px 0px -40px">
-                                <ul class="sub2">
-                                    <li><a href="ballJump.html">Ball Jump</a></li>
-                                    <li><a href="stickmenBattles.html">Stickmen Battles</a></li>
-                                </ul>
-                            </li>
-                            <li>Other<img src="images/arrow_right.png" alt="Right Arrow" align=right style="margin: 2px 12px 0px -40px">
-                                <ul class="sub2">
-                                    <li><a href="easyType.html">Easy Type</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="contactUs.html">Contact Us</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="content">
-            <div class="sliderContainer">
-                <div class="bubblesContainer"><div class="slideTimer"></div></div>
-                <img class="sliderArrowLeft" src="images/sliderArrowLeft.png"/>
-                <img class="sliderArrowRight" src="images/sliderArrowRight.png"/>
-                <ul class="slidesContainer">
-                    <li class="slide">
-                        <div class="side">
-                            <div class="slideImage">
-                                <a href="ballJump.html"><img src="images/ballJump_slide.png"/></a>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Ball Jump</span>
-                                <span class="slideInfoTagline">Fast. Addictive. Amazing.</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="side">
-                            <div class="slideImage">
-                                <a href="stickmenBattles.html"><img src="images/stickmenBattles_slide.png"/></a>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Stickmen Battles</span>
-                                <span class="slideInfoTagline">Fight. Defeat. Win.</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="side">
-                            <div class="slideImage">
-                                <a href="easyType.html"><img src="images/easyType_slide.png"/></a>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Easy Type</span>
-                                <span class="slideInfoTagline">Quick. Easy. Simple.</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+    <title>BlueRok</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/general.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/slideShow.css">
+    <script type="text/javascript" src="javascripts/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="javascripts/general.js"></script>
+    <script type="text/javascript" src="javascripts/slideShow.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>BlueRok</h1>
+        <nav></nav>
+    </header>
+    <div class="content">
+        <div class="sliderContainer">
+            <div class="bubblesContainer">
+                <div class="slideTimer"></div>
             </div>
-            <h1>Home</h1>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
-            <footer>
-                <a name="contactUsFooter" href="contactUs.html">Contact Us!</a>
-                <a name="backToTop" onclick="autoScrollTimer(0);">Scroll to top</a>
-            </footer>
+            <img class="sliderArrowLeft" src="images/general/sliderArrowLeft.png" />
+            <img class="sliderArrowRight" src="images/general/sliderArrowRight.png" />
+            <ul class="slidesContainer">
+                <li class="slide">
+                    <div class="side">
+                        <div class="slideImage">
+                            <a href="ballJump.html"><img src="images/slides/ballJump_slide.png"/></a>
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Ball Jump</span>
+                            <span class="slideInfoTagline">Fast. Addictive. Amazing.</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="side">
+                        <div class="slideImage">
+                            <a href="stickmenBattles.html"><img src="images/slides/stickmenBattles_slide.png"/></a>
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Stickmen Battles</span>
+                            <span class="slideInfoTagline">Fight. Defeat. Win.</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="side">
+                        <div class="slideImage">
+                            <a href="easyType.html"><img src="images/slides/easyType_slide.png"/></a>
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Easy Type</span>
+                            <span class="slideInfoTagline">Quick. Easy. Simple.</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </body>
+        <h1>Home</h1>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <footer>
+            <a name="contactUsFooter" href="contactUs.html">Contact Us</a>
+            <a name="backToTop" onclick="autoScrollTimer(0);">Scroll to top</a>
+        </footer>
+    </div>
+</body>
 </html>

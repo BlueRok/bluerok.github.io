@@ -1,0 +1,54 @@
+.card {
+    position: absolute;
+    user-select: none;
+}
+
+#solitaireGame {
+    margin: auto;
+    max-width: 1400px;
+    background-color: rgba(0, 140, 40, 1);
+}
+
+.gameScoreArea,
+.gameButtonsArea {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+
+.gameScoreArea {
+    height: 30px;
+    text-align: justify;
+    display: flex;
+    justify-content: space-around;
+    font-family: fantasy;
+    font-size: 20px;
+}
+
+.gameArea {
+    padding: 1.5%;
+}
+
+.gameButtonsArea {
+    text-align: center;
+}
+
+.gameButtonsArea button {
+    padding: 5px 15px;
+    width: auto;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    border-radius: 15px;
+    background-color: rgba(0, 100, 255, 0.6);
+    color: white;
+    transition: 0.3s;
+}
+
+.gameButtonsArea button:hover {
+    color: rgb(160, 255, 160);
+    background-color: rgba(0, 100, 255, 0.75);
+}
+
+.gameButtonsArea button[disabled] {
+    color: rgb(200, 200, 200);
+    background-color: rgba(150, 150, 255, 0.75);
+}

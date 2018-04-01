@@ -1,0 +1,8 @@
+Background			(245, 250, 255)
+Black				(0, 0, 0)
+Red (Symbol)		(200, 0, 0)
+Red (Letters)		(230, 0, 0)
+Yellow				(255, 235, 0)
+
+Marking Brush Size	6
+Letters Font		Roboto Condensed

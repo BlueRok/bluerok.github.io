@@ -1,148 +1,134 @@
 <!Doctype html>
 <html>
     <head>
-        <title>BlueRok</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet1.css">
-        <script type="text/javascript" src="javascripts/jquery-3.1.0.min.js"></script>
-        <script type="text/javascript" src="javascripts/javascript1.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>BlueRok</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutUs.html">About Us</a></li>
-                    <li class="dropdown-menu">Products<img src="images/arrow_down.png" alt="Down Arrow" align=right style="margin: 3px 15px 0px -40px">
-                        <ul class="sub1">
-                            <li>Games<img src="images/arrow_right.png" alt="Right Arrow" align=right style="margin: 2px 12px 0px -40px">
-                                <ul class="sub2">
-                                    <li id="current-page">Ball Jump</li>
-                                    <li><a href="stickmenBattles.html">Stickmen Battles</a></li>
-                                </ul>
-                            </li>
-                            <li>Other<img src="images/arrow_right.png" alt="Right Arrow" align=right style="margin: 2px 12px 0px -40px">
-                                <ul class="sub2">
-                                    <li><a href="easyType.html">Easy Type</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="contactUs.html">Contact Us</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="content">
-            <h1>Ball Jump</h1>
-            <p><a href="products/Ball_Jump/Ball_Jump_Installer.jar" download onclick="productDownload(&quot;Ball_Jump&quot;)">Download Ball Jump</a></p>
-            <p name=Ball_Jump_downloads></p>
-            <script>
-                productReadDownloads("Ball_Jump");
-            </script>
-            <p>Ball Jump is a simple yet addictive 2D computer game! With easy controls and simple layout, this is very a fun game! Navigate your own customizable character through evil enemies and jump up through the platforms. With power-ups and skill there will be nothing to stop you!</p>
-            <p>The question is: <strong>How far can you go?</strong></p>
-            <div class="sliderContainer">
-                <div class="bubblesContainer"><div class="slideTimer"></div></div>
-                <img class="sliderArrowLeft" src="images/sliderArrowLeft.png"/>
-                <img class="sliderArrowRight" src="images/sliderArrowRight.png"/>
-                <ul class="slidesContainer">
-                    <li class="slide">
-                        <div class="bottom">
-                            <div class="slideImage"><img src="images/ballJump_menu.png"/>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Simple and easy to use design!</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="bottom">
-                            <div class="slideImage"><img src="images/ballJump_game.png"/>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Addicitive and engaging gameplay!</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="bottom">
-                            <div class="slideImage">
-                                <img src="images/ballJump_character.png"/>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Customize your character to the way you want!</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="bottom">
-                            <div class="slideImage">
-                                <img src="images/ballJump_achievements.png"/>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Unlock challenging achievements!</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="bottom">
-                            <div class="slideImage"><img src="images/ballJump_levels.png"/>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Infinite levels!</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="slide">
-                        <div class="bottom">
-                            <div class="slideImage">
-                                <img src="images/ballJump_upgrade.png"/>
-                            </div>
-                            <div class="slideInfo">
-                                <span class="slideInfoTitle">Upgrade your character to the highest level!</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+    <title>BlueRok</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/general.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/slideShow.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/product.css">
+    <script type="text/javascript" src="javascripts/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="javascripts/general.js"></script>
+    <script type="text/javascript" src="javascripts/slideShow.js"></script>
+    <script type="text/javascript" src="javascripts/product.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>BlueRok</h1>
+        <nav></nav>
+    </header>
+    <div class="content">
+        <h1>Ball Jump</h1>
+        <p><a href="products/Ball_Jump/Ball_Jump_Installer.jar" download onclick="productDownload(&quot;Ball_Jump&quot;)">Download Ball Jump</a></p>
+        <p name=Ball_Jump_downloads></p>
+        <script>
+            productReadDownloads("Ball_Jump");
+        </script>
+        <p>Ball Jump is a simple yet addictive 2D computer game! With easy controls and simple layout, this is very a fun game! Navigate your own customizable character through evil enemies and jump up through the platforms. With power-ups and skill there will be nothing to stop you!</p>
+        <p>The question is: <strong>How far can you go?</strong></p>
+        <div class="sliderContainer">
+            <div class="bubblesContainer">
+                <div class="slideTimer"></div>
             </div>
-            <h2>Features</h2>
-            <ul class="features">
-                <li>Completely free</li>
-                <li>Super fun, fast gameplay</li>
-                <li>No in-app purchases</li>
-                <li>Easy to learn</li>
-                <li>Addictive gameplay</li>
-                <li>Customize your character</li>
-                <li>Easily report bugs</li>
-                <li>Request your favourite songs</li>
-                <li>Easily give feedback</li>
-                <li>Unlock achievements</li>
-                <li>Upgrade your character</li>
+            <img class="sliderArrowLeft" src="images/general/sliderArrowLeft.png" />
+            <img class="sliderArrowRight" src="images/general/sliderArrowRight.png" />
+            <ul class="slidesContainer">
+                <li class="slide">
+                    <div class="bottom">
+                        <div class="slideImage"><img src="images/ballJump/ballJump_menu.png" />
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Simple and easy to use design!</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="bottom">
+                        <div class="slideImage"><img src="images/ballJump/ballJump_game.png" />
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Addicitive and engaging gameplay!</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="bottom">
+                        <div class="slideImage">
+                            <img src="images/ballJump/ballJump_character.png" />
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Customize your character to the way you want!</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="bottom">
+                        <div class="slideImage">
+                            <img src="images/ballJump/ballJump_achievements.png" />
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Unlock challenging achievements!</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="bottom">
+                        <div class="slideImage"><img src="images/ballJump/ballJump_levels.png" />
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Infinite levels!</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide">
+                    <div class="bottom">
+                        <div class="slideImage">
+                            <img src="images/ballJump/ballJump_upgrade.png" />
+                        </div>
+                        <div class="slideInfo">
+                            <span class="slideInfoTitle">Upgrade your character to the highest level!</span>
+                        </div>
+                    </div>
+                </li>
             </ul>
-            <h2>Requirements</h2>
-            <ul class="requirements">
-                <li>You only need JRE version 1.8 or higher, if you don't have it then download it from <a href="https://java.com/en/download/" target="_blank">here</a></li>
-            </ul>
-            <h2>Information</h2>
-            <ul class="information">
-                <li><strong>Developer:</strong> Rokesh Arumugam</li>
-                <li name="Ball_Jump_version"></li>
-                <li name="Ball_Jump_size"></li>
-                <li><strong>Rating:</strong> 4+</li>
-                <li><strong>Compatibility:</strong> OS independent</li>
-                <li><strong>Languages:</strong> English (UK)</li>
-                <script>
-                    productDescription("Ball_Jump");
-                </script>
-            </ul>
-            <h2>Installation</h2>
-            <ul class="installation">
-                <li>1. Double click on "Ball_Jump_Installer.jar" and follow the instructions on screen.</li>
-            </ul>
-            <footer>
-                <a name="contactUsFooter" href="contactUs.html">Contact Us!</a>
-                <a name="backToTop" onclick="autoScrollTimer(0);">Scroll to top</a>
-            </footer>
         </div>
-    </body>
+        <h2>Features</h2>
+        <ul class="features">
+            <li>Completely free</li>
+            <li>Super fun, fast gameplay</li>
+            <li>No in-app purchases</li>
+            <li>Easy to learn</li>
+            <li>Addictive gameplay</li>
+            <li>Customize your character</li>
+            <li>Easily report bugs</li>
+            <li>Request your favourite songs</li>
+            <li>Easily give feedback</li>
+            <li>Unlock achievements</li>
+            <li>Upgrade your character</li>
+        </ul>
+        <h2>Requirements</h2>
+        <ul class="requirements">
+            <li>You only need JRE version 1.8 or higher, if you don't have it then download it from <a href="https://java.com/en/download/" target="_blank">here</a></li>
+        </ul>
+        <h2>Information</h2>
+        <ul class="information">
+            <li><strong>Developer:</strong> Rokesh Arumugam</li>
+            <li name="Ball_Jump_version"></li>
+            <li name="Ball_Jump_size"></li>
+            <li><strong>Rating:</strong> 4+</li>
+            <li><strong>Compatibility:</strong> OS independent</li>
+            <li><strong>Languages:</strong> English (UK)</li>
+            <script>
+                productDescription("Ball_Jump");
+            </script>
+        </ul>
+        <h2>Installation</h2>
+        <ul class="installation">
+            <li>1. Double click on "Ball_Jump_Installer.jar" and follow the instructions on screen.</li>
+        </ul>
+        <footer>
+            <a name="contactUsFooter" href="contactUs.html">Contact Us!</a>
+            <a name="backToTop" onclick="autoScrollTimer(0);">Scroll to top</a>
+        </footer>
+    </div>
+</body>
 </html>

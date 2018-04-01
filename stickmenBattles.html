@@ -1,80 +1,62 @@
 <!Doctype html>
 <html>
     <head>
-        <title>BlueRok</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet1.css">
-        <script type="text/javascript" src="javascripts/jquery-3.1.0.min.js"></script>
-        <script type="text/javascript" src="javascripts/javascript1.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>BlueRok</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutUs.html">About Us</a></li>
-                    <li class="dropdown-menu">Products<img src="images/arrow_down.png" alt="Down Arrow" align=right style="margin: 3px 15px 0px -40px">
-                        <ul class="sub1">
-                            <li>Games<img src="images/arrow_right.png" alt="Right Arrow" align=right style="margin: 2px 12px 0px -40px">
-                                <ul class="sub2">
-									<li><a href="ballJump.html">Ball Jump</a></li>
-                                    <li id="current-page">Stickmen Battles</li>
-                                </ul>
-                            </li>
-                            <li>Other<img src="images/arrow_right.png" alt="Right Arrow" align=right style="margin: 2px 12px 0px -40px">
-                                <ul class="sub2">
-                                    <li><a href="easyType.html">Easy Type</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="contactUs.html">Contact Us</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="content">
-            <h1>Stickmen Battles</h1>
-            <p><a href="products/Stickmen_Battles/Stickmen_Battles_Installer.jar" download onclick="alert(&quot;Stickmen Battles will now start downloading.\nPlease read INSTALL.txt or the installation instructions at the bottom of the page.&quot;); autoScrollTimer(Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight) - document.documentElement.clientHeight);">Download Stickmen Battles</a></p>
-            <p>Stickmen Battles is a simple yet addictive 2D computer game! With easy controls and simple layout, this is very a fun game! Navigate your own customizable character past evil enemies and see how long you can survive. With power-ups and skill there will be nothing to stop you!</p>
-            <p>The question is: <strong>How long can you survive?</strong></p>
-            <h2>Features</h2>
-            <ul class="features">
-                <li>Completely free</li>
-                <li>Super fun, fast gameplay</li>
-                <li>No in-app purchases</li>
-                <li>Easy to learn</li>
-                <li>Addictive gameplay</li>
-                <li>Customize your character</li>
-                <li>Easily report bugs</li>
-                <li>Request your favourite songs</li>
-                <li>Easily give feedback</li>
-                <li>Unlock achievements</li>
-                <li>Upgrade your character</li>
-            </ul>
-            <h2>Requirements</h2>
-            <ul class="requirements">
-                <li>You only need JRE version 1.8 or higher, if you don't have it then download it from <a href="https://java.com/en/download/" target="_blank">here</a></li>
-            </ul>
-            <h2>Information</h2>
-            <ul class="information">
-                <li><strong>Developer:</strong> Rokesh Arumugam</li>
-                <li name="Stickmen_Battles_version"></li>
-                <li name="Stickmen_Battles_size"></li>
-                <li><strong>Rating:</strong> 4+</li>
-                <li><strong>Compatibility:</strong> OS independent</li>
-                <li><strong>Languages:</strong> English (UK)</li>
-                <script>
-                    productDescription("Stickmen_Battles");
-                </script>
-            </ul>
-            <h2>Installation</h2>
-            <ul class="installation">
-                <li>1. Double click on "Stickmen_Battles_Installer.jar" and follow the instructions on screen.</li>
-            </ul>
-            <footer>
-                <a name="contactUsFooter" href="contactUs.html">Contact Us!</a>
-                <a name="backToTop" onclick="autoScrollTimer(0);">Scroll to top</a>
-            </footer>
-        </div>
-    </body>
+    <title>BlueRok</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/general.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/product.css">
+    <script type="text/javascript" src="javascripts/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="javascripts/general.js"></script>
+    <script type="text/javascript" src="javascripts/product.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>BlueRok</h1>
+        <nav></nav>
+    </header>
+    <div class="content">
+        <h1>Stickmen Battles</h1>
+        <p><a href="products/Stickmen_Battles/Stickmen_Battles_Installer.jar" download onclick="alert(&quot;Stickmen Battles will now start downloading.\nPlease read INSTALL.txt or the installation instructions at the bottom of the page.&quot;); autoScrollTimer(Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight) - document.documentElement.clientHeight);">Download Stickmen Battles</a></p>
+        <p>Stickmen Battles is a simple yet addictive 2D computer game! With easy controls and simple layout, this is very a fun game! Navigate your own customizable character past evil enemies and see how long you can survive. With power-ups and skill there will be nothing to stop you!</p>
+        <p>The question is: <strong>How long can you survive?</strong></p>
+        <h2>Features</h2>
+        <ul class="features">
+            <li>Completely free</li>
+            <li>Super fun, fast gameplay</li>
+            <li>No in-app purchases</li>
+            <li>Easy to learn</li>
+            <li>Addictive gameplay</li>
+            <li>Customize your character</li>
+            <li>Easily report bugs</li>
+            <li>Request your favourite songs</li>
+            <li>Easily give feedback</li>
+            <li>Unlock achievements</li>
+            <li>Upgrade your character</li>
+        </ul>
+        <h2>Requirements</h2>
+        <ul class="requirements">
+            <li>You only need JRE version 1.8 or higher, if you don't have it then download it from <a href="https://java.com/en/download/" target="_blank">here</a></li>
+        </ul>
+        <h2>Information</h2>
+        <ul class="information">
+            <li><strong>Developer:</strong> Rokesh Arumugam</li>
+            <li name="Stickmen_Battles_version"></li>
+            <li name="Stickmen_Battles_size"></li>
+            <li><strong>Rating:</strong> 4+</li>
+            <li><strong>Compatibility:</strong> OS independent</li>
+            <li><strong>Languages:</strong> English (UK)</li>
+            <script>
+                productDescription("Stickmen_Battles");
+            </script>
+        </ul>
+        <h2>Installation</h2>
+        <ul class="installation">
+            <li>1. Double click on "Stickmen_Battles_Installer.jar" and follow the instructions on screen.</li>
+        </ul>
+        <footer>
+            <a name="contactUsFooter" href="contactUs.html">Contact Us!</a>
+            <a name="backToTop" onclick="autoScrollTimer(0);">Scroll to top</a>
+        </footer>
+    </div>
+</body>
 </html>

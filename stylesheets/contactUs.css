@@ -1,0 +1,43 @@
+fieldset {
+    margin: 30px 3.8%;
+    text-align: center;
+    border: none;
+    background-color: rgb(220, 220, 220);
+}
+
+label {
+    transition: 0.5s;
+}
+
+input,
+textarea {
+    font-size: 30px;
+}
+
+input {
+    transition: ease-in-out 0.25s;
+}
+
+input[name=forename] {
+    width: 275px;
+}
+
+input[name=surname] {
+    width: 265px;
+}
+
+input[name=emailAddress] {
+    width: 335px;
+}
+
+input[name=confirmEmailAddress] {
+    width: 370px;
+}
+
+input:focus {
+    width: 380px;
+}
+
+textarea[name=message] {
+    width: 95%;
+}
