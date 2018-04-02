@@ -635,8 +635,8 @@ $(function () {
                 if (gameStarted && !($(this).is(":animated"))) {
                     var thisCardID = parseInt($(this).attr("data-cardID"));
                     if (isCardInLastPos(thisCardID) && !($(this).is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
-                        CARD_OBJECTS[thisCardID].selectedXOffset = 0;
-                        CARD_OBJECTS[thisCardID].selectedYOffset = 0;
+                        CARD_OBJECTS[thisCardID].selectedXOffset = CARD_OBJECTS[thisCardID].cardImage.width() / 2;
+                        CARD_OBJECTS[thisCardID].selectedYOffset = CARD_OBJECTS[thisCardID].cardImage.height() / 2;
                         movingCards = [{
                             ID: thisCardID,
                             image: $(this),
@@ -653,7 +653,7 @@ $(function () {
                                         movingCards[movingCards.length] = {
                                             ID: belowCardID,
                                             image: CARD_OBJECTS[belowCardID].cardImage,
-                                            yOffset: 0
+                                            yOffset: CARD_OBJECTS[belowCardID].lastPosY - CARD_OBJECTS[thisCardID].lastPosY
                                         };
                                     }
                                 }
