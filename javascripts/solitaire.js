@@ -19,7 +19,6 @@ var playButton;
 var hardButton;
 var mediumButton;
 var easyButton;
-var touchDevice;
 var windowScrollLeft;
 var windowScrollTop;
 var GAME_TYPES = {
@@ -154,8 +153,6 @@ $(function () {
 
     scoreArea.css("background-color", wholeGameArea.css("background-color"));
     generateCards(gameArea);
-
-    touchDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window);
 
     // Deck
     function handDealCards() {
@@ -564,8 +561,6 @@ $(function () {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
             if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
-                windowScrollLeft = $(window).scrollLeft();
-                windowScrollTop = $(window).scrollTop();
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
                 movingCards = [{
@@ -596,8 +591,7 @@ $(function () {
     }
 
     function drag(event, card) {
-        $(window).scrollLeft(windowScrollLeft);
-        $(window).scrollTop(windowScrollTop);
+        event.preventDefault();
         var thisCardID = parseInt(card.attr("data-cardID"));
         if (gameStarted && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
             for (var j = 0; j < movingCards.length; j++) {
@@ -774,7 +768,7 @@ $(function () {
     for (var rank = 1; rank <= 13; rank++) {
         for (suit = 1; suit <= 4; suit++) {
             var cardID = getCardID(rank, suit);
-            if (!touchDevice) {
+            if (!isTouchScreenDevice) {
                 CARD_OBJECTS[cardID].cardImage.on("dragstart", function (event) {
                     dragStart(event, $(this));
                 });

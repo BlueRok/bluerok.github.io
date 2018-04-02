@@ -1,5 +1,8 @@
+var isTouchScreenDevice;
 var autoScrollTimer;
 $(function () {
+    isTouchScreenDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window);
+    
     var header = $("header");
     var nav;
     var navLi;
