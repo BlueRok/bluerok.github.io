@@ -562,8 +562,8 @@ $(function () {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
             if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
-                CARD_OBJECTS[thisCardID].selectedXOffset = CARD_OBJECTS[thisCardID].cardImage.width() / 2;
-                CARD_OBJECTS[thisCardID].selectedYOffset = CARD_OBJECTS[thisCardID].cardImage.height() / 2;
+                CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
+                CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
                 movingCards = [{
                     ID: thisCardID,
                     image: card,
