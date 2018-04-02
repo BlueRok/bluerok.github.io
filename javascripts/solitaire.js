@@ -787,6 +787,7 @@ $(function () {
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchmove", function (event) {
+console.log("moving");
                     drag(event, $(this));
                 });
 
