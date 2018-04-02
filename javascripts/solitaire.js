@@ -783,6 +783,8 @@ $(function () {
             } else {
 
                 CARD_OBJECTS[cardID].cardImage.on("touchstart", function (event) {
+console.log("starting");
+
                     dragStart(event, $(this));
                 });
 
@@ -792,6 +794,8 @@ console.log("moving");
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
+console.log("ending");
+
                     dragEnd(event, $(this));
                 });
             }
