@@ -20,6 +20,8 @@ var hardButton;
 var mediumButton;
 var easyButton;
 var touchDevice;
+var windowScrollLeft;
+var windowScrollTop;
 var GAME_TYPES = {
     Easy: 1,
     Medium: 2,
@@ -562,6 +564,8 @@ $(function () {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
             if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
+                windowScrollLeft = $(window).scrollLeft();
+                windowScrollTop = $(window).scrollTop();
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
                 movingCards = [{
@@ -592,9 +596,10 @@ $(function () {
     }
 
     function drag(event, card) {
+        $(window).scrollLeft(windowScrollLeft);
+        $(window).scrollTop(windowScrollTop);
         var thisCardID = parseInt(card.attr("data-cardID"));
         if (gameStarted && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
-
             for (var j = 0; j < movingCards.length; j++) {
                 if (event.pageX != 0 && event.pageY != 0) {
                     var posX = event.pageX - movingCards[0].selectedXOffset;
