@@ -164,6 +164,7 @@ $(function () {
                 if (j == i) {
                     CARD_OBJECTS[cardID].turnFaceUp(function (currentCardID) {
                         CARD_OBJECTS[currentCardID].cardImage.attr("draggable", true);
+                        setTableauCardZindex(currentCardID);
                     });
                 }
             }
@@ -560,7 +561,8 @@ $(function () {
     function dragStart(event, card) {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
-            if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
+            if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable") && (movingCards.length == 0)) {
+                event.preventDefault();
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
                 movingCards = [{
@@ -620,6 +622,7 @@ $(function () {
     }
 
     function dragEnd(event, card) {
+        event.preventDefault();
         for (var j = 0; j < movingCards.length; j++) {
             var added = false;
             for (var k = 0; k < foundations.length; k++) {
@@ -690,6 +693,7 @@ $(function () {
                 moveCardToLastPos(movingCards[j].ID, cardMoveTime);
             }
         }
+        movingCards = [];
     }
 
     gameArea.on("click", function (event) {
@@ -781,21 +785,15 @@ $(function () {
                     dragEnd(event, $(this));
                 });
             } else {
-
                 CARD_OBJECTS[cardID].cardImage.on("touchstart", function (event) {
-console.log("starting");
-
                     dragStart(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchmove", function (event) {
-console.log("moving");
                     drag(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
-console.log("ending");
-
                     dragEnd(event, $(this));
                 });
             }
