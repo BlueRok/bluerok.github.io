@@ -562,9 +562,11 @@ $(function () {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
             if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable") && (movingCards.length == 0)) {
+                console.log(CARD_OBJECTS[thisCardID].cardImage.attr("draggable"));
                 event.preventDefault();
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
+                CARD_OBJECTS[thisCardID].cardImage.css("z-index", tableaux.length + 13);
                 movingCards = [{
                     ID: thisCardID,
                     image: card,
