@@ -11,6 +11,7 @@ var timeScoreArea;
 var pointsScore = 0;
 var pointsScoreArea;
 var gameArea;
+var solitaireDirectory;
 var resetDeckButtonSrc;
 var resetDeckButton;
 var buttonsArea;
@@ -34,6 +35,7 @@ var deckFaceUpCards = 0;
 var deckMargin = 0.35;
 var deckPadding = 0.3;
 var numberOfFoundations = 4;
+var foundationSrc;
 var foundationAreaWidth = 0.55;
 var foundationY;
 var topMargin;
@@ -57,7 +59,8 @@ $(function () {
 
     // Play
     gameArea = wholeGameArea.find(".gameArea");
-    resetDeckButtonSrc = cardsDirectory + "solitaire/resetDeck.png";
+    solitaireDirectory = cardsDirectory + "solitaire/";
+    resetDeckButtonSrc = solitaireDirectory + "resetDeck.png";
     gameArea.append("<img class=\"card\" src=\"" + resetDeckButtonSrc + "\" draggable=false>");
     resetDeckButton = gameArea.find("img[src$=\"" + resetDeckButtonSrc + "\"]");
 
@@ -294,10 +297,24 @@ $(function () {
     }
 
     // Foundations
+    foundationSrc = solitaireDirectory + "/foundation.png";
+
     class Foundation {
         constructor() {
             this.x = undefined;
+            gameArea.append("<img class=\"card\" src=\"" + foundationSrc + "\" draggable=false>");
+            this.background = $("img[src$=\"" + foundationSrc + "\"]").last();
             this.cardIDs = [];
+        }
+
+        setX(newX) {
+            this.x = newX;
+            this.background.css("left", this.x - (this.background.width() / 2));
+            this.background.css("top", foundationY);
+            for (var i = 0; i < this.cardIDs.length; i++) {
+                this.setCardPos(this.cardIDs[i]);
+                moveCardToLastPos(this.cardIDs[i], cardMoveTime);
+            }
         }
 
         addCard(cardID, moveTime) {
@@ -402,6 +419,11 @@ $(function () {
             this.cardIDs = [];
         }
 
+        setX(newX) {
+            this.x = newX;
+            this.calculateCardPadding();
+        }
+
         calculateCardPadding(zIndex) {
             if (this.cardIDs.length > 1) {
                 this.cardPadding = (gameAreaBoundaries.top + gameArea.height() - tableauTop - cardImageSize.height) / (this.cardIDs.length - 1);
@@ -503,7 +525,9 @@ $(function () {
         resetDeck(deckFaceUpCards, 0);
         foundationY = gameAreaBoundaries.top;
         for (var i = 0; i < foundations.length; i++) {
-            foundations[i].x = gameAreaBoundaries.left + (gameArea.width() * (1 - foundationAreaWidth)) + (gameArea.width() * foundationAreaWidth / foundations.length * (i + 0.5));
+            foundations[i].setX(gameAreaBoundaries.left + (gameArea.width() * (1 - foundationAreaWidth)) + (gameArea.width() * foundationAreaWidth / foundations.length * (i + 0.5)));
+            foundations[i].background.css("width", cardImageSize.width);
+            foundations[i].background.css("height", cardImageSize.height);
             for (var j = 0; j < foundations[i].cardIDs.length; j++) {
                 foundations[i].setCardPos(foundations[i].cardIDs[j]);
                 moveCardToLastPos(foundations[i].cardIDs[j], cardMoveTime);
@@ -514,8 +538,7 @@ $(function () {
         tableauMaxCardPadding = cardImageSize.height / 4;
         gameArea.css("height", cardImageSize.height + topMargin + (12 * tableauMaxCardPadding) + cardImageSize.height);
         for (var i = 0; i < tableaux.length; i++) {
-            tableaux[i].x = gameAreaBoundaries.left + (gameArea.width() / tableaux.length * (i + 0.5));
-            tableaux[i].calculateCardPadding();
+            tableaux[i].setX(gameAreaBoundaries.left + (gameArea.width() / tableaux.length * (i + 0.5)));
         }
     }
     CARD_OBJECTS[getCardID(1, 1)].cardImage.on("load", function () {
@@ -612,8 +635,8 @@ $(function () {
                 if (gameStarted && !($(this).is(":animated"))) {
                     var thisCardID = parseInt($(this).attr("data-cardID"));
                     if (isCardInLastPos(thisCardID) && !($(this).is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
-                        CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
-                        CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
+                        CARD_OBJECTS[thisCardID].selectedXOffset = 0;
+                        CARD_OBJECTS[thisCardID].selectedYOffset = 0;
                         movingCards = [{
                             ID: thisCardID,
                             image: $(this),
@@ -630,7 +653,7 @@ $(function () {
                                         movingCards[movingCards.length] = {
                                             ID: belowCardID,
                                             image: CARD_OBJECTS[belowCardID].cardImage,
-                                            yOffset: CARD_OBJECTS[belowCardID].lastPosY - CARD_OBJECTS[thisCardID].lastPosY
+                                            yOffset: 0
                                         };
                                     }
                                 }
