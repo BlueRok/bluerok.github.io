@@ -22,11 +22,11 @@ var CARD_SUITS = {
 };
 var CARD_OBJECTS = {};
 var DECK;
-var cardImageRatio;
+var cardImageRatio = 3.5 / 2.5;
 var cardImageSize;
 var cardsDirectory = "images/cards/";
 var cardBackImage = cardsDirectory + "back.png";
-var cardMaxWidth = 125;
+var cardMaxWidth = 100;
 var cardFlipTime = 250;
 
 class Card {
@@ -48,7 +48,7 @@ class Card {
         this.cardImage = $("[data-cardID=" + this.cardID + "]");
         this.lastPosX = this.cardImage.position().left;
         this.lastPosY = this.cardImage.position().top;
-        this.cardImage.attr("src", (this.faceUp) ? this.faceUpImage : cardBackImage);
+        this.cardImage.css("background-image", "url(" + ((this.faceUp) ? this.faceUpImage : cardBackImage) + ")");
     }
 
     turnFaceUp(completion) {
@@ -71,9 +71,9 @@ class Card {
             marginTop: -(this.cardImage.height() / 8)
         }, cardFlipTime / 2, function (currentCardID) {
             if (!CARD_OBJECTS[currentCardID].faceUp) {
-                CARD_OBJECTS[currentCardID].cardImage.attr("src", CARD_OBJECTS[currentCardID].faceUpImage);
+                CARD_OBJECTS[currentCardID].cardImage.css("background-image", "url(" + CARD_OBJECTS[currentCardID].faceUpImage + ")");
             } else {
-                CARD_OBJECTS[currentCardID].cardImage.attr("src", cardBackImage);
+                CARD_OBJECTS[currentCardID].cardImage.css("background-image", "url(" + cardBackImage + ")");
             }
             CARD_OBJECTS[currentCardID].faceUp = !CARD_OBJECTS[currentCardID].faceUp;
             animateCard(currentCardID, {
@@ -120,7 +120,7 @@ function generateCards(area) {
         for (suit = 1; suit <= 4; suit++) {
             var cardID = getCardID(rank, suit);
             CARD_OBJECTS[cardID] = new Card(rank, suit);
-            area.append("<img class=\"card\" data-cardID=\"" + cardID + "\" draggable=false>");
+            area.append("<div class=\"card\" data-cardID=\"" + cardID + "\" draggable=false></div>");
             CARD_OBJECTS[cardID].setCardImage();
             DECK.cardIDs[DECK.cardIDs.length] = cardID;
         }
@@ -135,6 +135,7 @@ function setCardImageSize(width) {
             var cardID = getCardID(rank, suit);
             CARD_OBJECTS[cardID].cardImage.css("width", width + "px");
             CARD_OBJECTS[cardID].cardImage.css("height", (width * cardImageRatio) + "px");
+            CARD_OBJECTS[cardID].cardImage.css("background-size", width + "px");
         }
     }
     cardImageSize = {

@@ -26,6 +26,7 @@ var GAME_TYPES = {
 var GAME_DIFFICULTY = GAME_TYPES.Hard;
 var gameLoaded = false;
 var gameStarted = false;
+var gameFinished = false;
 var autoCompleteTime = 400;
 var deckDealTimer = undefined;
 var deckDealTime = 500;
@@ -107,11 +108,13 @@ $(function () {
     }
 
     function setPointsScore(change) {
-        pointsScore += change;
-        if (pointsScore < 0) {
-            pointsScore = 0;
+        if (!gameFinished) {
+            pointsScore += change;
+            if (pointsScore < 0) {
+                pointsScore = 0;
+            }
+            pointsScoreArea.text("Score: " + pointsScore);
         }
-        pointsScoreArea.text("Score: " + pointsScore);
     }
 
     function showDifficultyButtons(time) {
@@ -143,7 +146,7 @@ $(function () {
         alert("You won!\nYou took " + timeScoreTime + "\n\nRestart to play again");
     }
 
-    scoreArea.css("background-color", "rgba(0, 0, 0, 0.0001)");
+    scoreArea.css("background-color", wholeGameArea.css("background-color"));
     generateCards(gameArea);
 
     // Deck
@@ -271,6 +274,7 @@ $(function () {
     }
 
     function autoComplete() {
+        gameFinished = true;
         clearInterval(timeScoreTimer);
         resetDeckButton.hide();
         for (var rank = 1; rank <= 13; rank++) {
@@ -298,10 +302,14 @@ $(function () {
 
         addCard(cardID, moveTime) {
             this.cardIDs = this.cardIDs.concat([cardID]);
-            CARD_OBJECTS[cardID].lastPosX = this.x - (CARD_OBJECTS[cardID].cardImage.width() / 2);
-            CARD_OBJECTS[cardID].lastPosY = foundationY;
+            this.setCardPos(cardID);
             setFoundationCardZindex(cardID);
             moveCardToLastPos(cardID, moveTime);
+        }
+
+        setCardPos(cardID) {
+            CARD_OBJECTS[cardID].lastPosX = this.x - (CARD_OBJECTS[cardID].cardImage.width() / 2);
+            CARD_OBJECTS[cardID].lastPosY = foundationY;
         }
 
         removeCard(cardID) {
@@ -374,6 +382,9 @@ $(function () {
             }
             if (index != foundationFromIndex) {
                 foundations[index].addCard(cardID, moveTime);
+                if (foundationFromIndex == -1) {
+                    setPointsScore(10);
+                }
                 added = true;
             }
         }
@@ -472,7 +483,7 @@ $(function () {
     }
 
     function setTableauCardZindex(cardID) {
-        CARD_OBJECTS[cardID].cardImage.css("z-index", 13 - CARD_OBJECTS[cardID].rank);
+        CARD_OBJECTS[cardID].cardImage.css("z-index", tableaux.length + 13 - CARD_OBJECTS[cardID].rank);
     }
 
     // Resizing
@@ -493,6 +504,10 @@ $(function () {
         foundationY = gameAreaBoundaries.top;
         for (var i = 0; i < foundations.length; i++) {
             foundations[i].x = gameAreaBoundaries.left + (gameArea.width() * (1 - foundationAreaWidth)) + (gameArea.width() * foundationAreaWidth / foundations.length * (i + 0.5));
+            for (var j = 0; j < foundations[i].cardIDs.length; j++) {
+                foundations[i].setCardPos(foundations[i].cardIDs[j]);
+                moveCardToLastPos(foundations[i].cardIDs[j], cardMoveTime);
+            }
         }
         topMargin = cardImageSize.height / 5;
         tableauTop = gameAreaBoundaries.top + cardImageSize.height + topMargin;
@@ -559,16 +574,21 @@ $(function () {
                                 }
                                 deckFaceUpCards++;
                                 i++;
-                                if (i >= GAME_DIFFICULTY) {
-                                    CARD_OBJECTS[DECK.cardIDs[DECK.cardIDs.length - 1 - (deckFaceUpCards - 1)]].cardImage.attr("draggable", true);
-                                    clearInterval(deckDealTimer);
-                                    deckDealTimer = undefined;
-                                }
                             } else {
-                                resetDeck(0, cardMoveTime);
-                                if (GAME_DIFFICULTY == GAME_TYPES.Easy) {
-                                    setPointsScore(-100);
+                                if (i == 0) {
+                                    resetDeck(0, cardMoveTime);
+                                    if (GAME_DIFFICULTY == GAME_TYPES.Easy) {
+                                        setPointsScore(-100);
+                                    }
                                 }
+                                i = GAME_DIFFICULTY;
+                            }
+                            if (i >= GAME_DIFFICULTY) {
+                                var lastCardID = deckFaceUpCards;
+                                if (lastCardID == 0) {
+                                    lastCardID = DECK.cardIDs.length;
+                                }
+                                CARD_OBJECTS[DECK.cardIDs[DECK.cardIDs.length - 1 - (lastCardID - 1)]].cardImage.attr("draggable", true);
                                 clearInterval(deckDealTimer);
                                 deckDealTimer = undefined;
                             }
@@ -665,7 +685,6 @@ $(function () {
                             })) {
                             added = tryAddToFoundation(movingCards[j].ID, k, cardMoveTime);
                             if (added) {
-                                setPointsScore(10);
                                 break;
                             }
                         }

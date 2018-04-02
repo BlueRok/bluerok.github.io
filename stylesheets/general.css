@@ -38,6 +38,10 @@ header h1 {
     margin-top: 118.5px;
 }
 
+nav > ul {
+    margin-top: 0.5px;
+}
+
 nav > ul > li {
     border-right: 0.5px groove white;
 }
@@ -54,7 +58,6 @@ nav li {
 
 nav a {
     padding: 10px 0px;
-    border-radius: 10px;
     font-family: Bookman Old Style;
     font-weight: bold;
     color: rgb(250, 250, 250);
@@ -63,16 +66,16 @@ nav a {
     transition: 0.3s;
 }
 
-nav li:hover {
+nav li.hover {
     background-color: rgba(0, 0, 255, 0.5);
 }
 
-nav li a:hover {
+nav li a.hover {
     color: var(--selectedNavTextColor);
 }
 
-nav li:hover > ul.sub1,
-nav li:hover > ul.sub2 {
+nav li.hover > ul.sub1,
+nav li.hover > ul.sub2 {
     opacity: 1;
     visibility: visible;
 }

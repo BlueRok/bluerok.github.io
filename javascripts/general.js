@@ -1,6 +1,33 @@
+var autoScrollTimer;
 $(function () {
-    $("nav").load("nav.html");
-    
+    var header = $("header");
+    var nav;
+    var navLi;
+    header.load("header.html", function () {
+        nav = header.find("nav");
+        navLi = nav.find("li");
+        navLi.on("click", function () {
+            if ($(this).attr("data-clicked") != undefined) {
+                $(this).attr("data-clicked", !($(this).attr("data-clicked") == "true"));
+            }
+        });
+
+        navLi.hover(function () {
+            $(this).addClass("hover");
+        }, function () {
+            if (($(this).attr("data-clicked") == undefined) || !($(this).attr("data-clicked") == "true")) {
+                $(this).removeClass("hover");
+            }
+        });
+
+        navLi.find("a").hover(function () {
+            $(this).addClass("hover");
+        }, function () {
+            $(this).removeClass("hover");
+        });
+    });
+
+
     function shrinkHeader() {
         var scrollDistance = window.pageYOffset;
         var header = document.getElementsByTagName("header")[0];
@@ -51,7 +78,7 @@ $(function () {
         }
     }
 
-    function autoScrollTimer(targetY) {
+    autoScrollTimer = function (targetY) {
         var startingY = window.pageYOffset;
         scroller = setInterval(function () {
             autoScroll(startingY, targetY)
