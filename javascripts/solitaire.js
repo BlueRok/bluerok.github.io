@@ -19,6 +19,7 @@ var playButton;
 var hardButton;
 var mediumButton;
 var easyButton;
+var touchDevice;
 var GAME_TYPES = {
     Easy: 1,
     Medium: 2,
@@ -151,6 +152,8 @@ $(function () {
 
     scoreArea.css("background-color", wholeGameArea.css("background-color"));
     generateCards(gameArea);
+
+    touchDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window);
 
     // Deck
     function handDealCards() {
@@ -555,6 +558,141 @@ $(function () {
     });
 
     // Action
+    function dragStart(event, card) {
+        if (gameStarted && !(card.is(":animated"))) {
+            var thisCardID = parseInt(card.attr("data-cardID"));
+            if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
+                CARD_OBJECTS[thisCardID].selectedXOffset = CARD_OBJECTS[thisCardID].cardImage.width() / 2;
+                CARD_OBJECTS[thisCardID].selectedYOffset = CARD_OBJECTS[thisCardID].cardImage.height() / 2;
+                movingCards = [{
+                    ID: thisCardID,
+                    image: card,
+                    yOffset: 0,
+                    selectedXOffset: CARD_OBJECTS[thisCardID].selectedXOffset,
+                    selectedYOffset: CARD_OBJECTS[thisCardID].selectedYOffset
+                        }];
+                for (var j = 0; j < tableaux.length; j++) {
+                    if (isFromTableau(thisCardID, j)) {
+                        var thisCardIndex = tableaux[j].cardIDs.indexOf(thisCardID);
+                        if (thisCardIndex < (tableaux[j].cardIDs.length - 1)) {
+                            for (var k = (thisCardIndex + 1); k < tableaux[j].cardIDs.length; k++) {
+                                var belowCardID = tableaux[j].cardIDs[k];
+                                movingCards[movingCards.length] = {
+                                    ID: belowCardID,
+                                    image: CARD_OBJECTS[belowCardID].cardImage,
+                                    yOffset: CARD_OBJECTS[belowCardID].lastPosY - CARD_OBJECTS[thisCardID].lastPosY
+                                };
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    function drag(event, card) {
+        var thisCardID = parseInt(card.attr("data-cardID"));
+        if (gameStarted && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
+
+            for (var j = 0; j < movingCards.length; j++) {
+                if (event.pageX != 0 && event.pageY != 0) {
+                    var posX = event.pageX - movingCards[0].selectedXOffset;
+                    var posY = event.pageY - movingCards[0].selectedYOffset + movingCards[j].yOffset;
+
+                    // Boundaries
+                    if (posX < gameAreaBoundaries.left) {
+                        movingCards[j].image.css("left", gameAreaBoundaries.left + "px");
+                    } else if (posX > (gameAreaBoundaries.left + gameArea.width() - movingCards[j].image.width())) {
+                        movingCards[j].image.css("left", gameAreaBoundaries.left + gameArea.width() - movingCards[j].image.width() + "px");
+                    } else {
+                        movingCards[j].image.css("left", posX + "px");
+                    }
+                    if (posY < gameAreaBoundaries.top) {
+                        movingCards[j].image.css("top", gameAreaBoundaries.top + "px");
+                    } else if (posY > (gameAreaBoundaries.top + gameArea.height() - movingCards[j].image.height())) {
+                        movingCards[j].image.css("top", gameAreaBoundaries.top + gameArea.height() - movingCards[j].image.height() + "px");
+                    } else {
+                        movingCards[j].image.css("top", posY + "px");
+                    }
+                }
+            }
+        }
+    }
+
+    function dragEnd(event, card) {
+        for (var j = 0; j < movingCards.length; j++) {
+            var added = false;
+            for (var k = 0; k < foundations.length; k++) {
+                if (isInPos({
+                        x: movingCards[j].image.position().left + (movingCards[j].image.width() / 2),
+                        y: movingCards[j].image.position().top
+                    }, {
+                        x: foundations[k].x,
+                        y: foundationY
+                    }, {
+                        x: dropBuffer,
+                        y: dropBuffer
+                    })) {
+                    added = tryAddToFoundation(movingCards[j].ID, k, cardMoveTime);
+                    if (added) {
+                        break;
+                    }
+                }
+            }
+            if (!added) {
+                for (var k = 0; k < tableaux.length; k++) {
+                    if (isInPos({
+                            x: movingCards[j].image.position().left + (movingCards[j].image.width() / 2),
+                            y: movingCards[j].image.position().top + (movingCards[j].image.height() / 2)
+                        }, {
+                            x: tableaux[k].x,
+                            y: tableauTop + ((gameAreaBoundaries.top + gameArea.height() - tableauTop) / 2)
+                        }, {
+                            x: dropBuffer,
+                            y: ((gameAreaBoundaries.top + gameArea.height() - tableauTop) / 2) + dropBuffer
+                        }) && canAddToTableau(movingCards[j].ID, k)) {
+                        var removed = false;
+                        var tableauFromIndex = -1;
+                        if (!(isFromDeck(movingCards[j].ID))) {
+                            for (var l = 0; l < foundations.length; l++) {
+                                if (isFromFoundation(movingCards[j].ID, l)) {
+                                    foundations[l].removeCard(movingCards[j].ID);
+                                    setPointsScore(-15);
+                                    removed = true;
+                                    break;
+                                }
+                            }
+                            if (!removed) {
+                                for (var l = 0; l < tableaux.length; l++) {
+                                    if (isFromTableau(movingCards[j].ID, l)) {
+                                        tableauFromIndex = l;
+                                        if (l != k) {
+                                            tableaux[l].removeCard(movingCards[j].ID);
+                                            removed = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (k != tableauFromIndex) {
+                            tableaux[k].addCard(movingCards[j].ID);
+                            if (!removed) {
+                                setPointsScore(5);
+                            }
+                            added = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!added) {
+                moveCardToLastPos(movingCards[j].ID, cardMoveTime);
+            }
+        }
+    }
+
     gameArea.on("click", function (event) {
         if (gameStarted) {
             if (isInPos({
@@ -631,139 +769,32 @@ $(function () {
     for (var rank = 1; rank <= 13; rank++) {
         for (suit = 1; suit <= 4; suit++) {
             var cardID = getCardID(rank, suit);
-            CARD_OBJECTS[cardID].cardImage.on("dragstart", function (event) {
-                if (gameStarted && !($(this).is(":animated"))) {
-                    var thisCardID = parseInt($(this).attr("data-cardID"));
-                    if (isCardInLastPos(thisCardID) && !($(this).is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
-                        CARD_OBJECTS[thisCardID].selectedXOffset = CARD_OBJECTS[thisCardID].cardImage.width() / 2;
-                        CARD_OBJECTS[thisCardID].selectedYOffset = CARD_OBJECTS[thisCardID].cardImage.height() / 2;
-                        movingCards = [{
-                            ID: thisCardID,
-                            image: $(this),
-                            yOffset: 0,
-                            selectedXOffset: CARD_OBJECTS[thisCardID].selectedXOffset,
-                            selectedYOffset: CARD_OBJECTS[thisCardID].selectedYOffset
-                        }];
-                        for (var j = 0; j < tableaux.length; j++) {
-                            if (isFromTableau(thisCardID, j)) {
-                                var thisCardIndex = tableaux[j].cardIDs.indexOf(thisCardID);
-                                if (thisCardIndex < (tableaux[j].cardIDs.length - 1)) {
-                                    for (var k = (thisCardIndex + 1); k < tableaux[j].cardIDs.length; k++) {
-                                        var belowCardID = tableaux[j].cardIDs[k];
-                                        movingCards[movingCards.length] = {
-                                            ID: belowCardID,
-                                            image: CARD_OBJECTS[belowCardID].cardImage,
-                                            yOffset: CARD_OBJECTS[belowCardID].lastPosY - CARD_OBJECTS[thisCardID].lastPosY
-                                        };
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            });
+            if (!touchDevice) {
+                CARD_OBJECTS[cardID].cardImage.on("dragstart", function (event) {
+                    dragStart(event, $(this));
+                });
 
-            CARD_OBJECTS[cardID].cardImage.on("drag", function (event) {
-                var thisCardID = parseInt($(this).attr("data-cardID"));
-                if (gameStarted && !($(this).is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
+                CARD_OBJECTS[cardID].cardImage.on("drag", function (event) {
+                    drag(event, $(this));
+                });
 
-                    for (var j = 0; j < movingCards.length; j++) {
-                        if (event.pageX != 0 && event.pageY != 0) {
-                            var posX = event.pageX - movingCards[0].selectedXOffset;
-                            var posY = event.pageY - movingCards[0].selectedYOffset + movingCards[j].yOffset;
+                CARD_OBJECTS[cardID].cardImage.on("dragend", function (event) {
+                    dragEnd(event, $(this));
+                });
+            } else {
 
-                            // Boundaries
-                            if (posX < gameAreaBoundaries.left) {
-                                movingCards[j].image.css("left", gameAreaBoundaries.left + "px");
-                            } else if (posX > (gameAreaBoundaries.left + gameArea.width() - movingCards[j].image.width())) {
-                                movingCards[j].image.css("left", gameAreaBoundaries.left + gameArea.width() - movingCards[j].image.width() + "px");
-                            } else {
-                                movingCards[j].image.css("left", posX + "px");
-                            }
-                            if (posY < gameAreaBoundaries.top) {
-                                movingCards[j].image.css("top", gameAreaBoundaries.top + "px");
-                            } else if (posY > (gameAreaBoundaries.top + gameArea.height() - movingCards[j].image.height())) {
-                                movingCards[j].image.css("top", gameAreaBoundaries.top + gameArea.height() - movingCards[j].image.height() + "px");
-                            } else {
-                                movingCards[j].image.css("top", posY + "px");
-                            }
-                        }
-                    }
-                }
-            });
-            CARD_OBJECTS[cardID].cardImage.on("dragend", function (event) {
-                for (var j = 0; j < movingCards.length; j++) {
-                    var added = false;
-                    for (var k = 0; k < foundations.length; k++) {
-                        if (isInPos({
-                                x: movingCards[j].image.position().left + (movingCards[j].image.width() / 2),
-                                y: movingCards[j].image.position().top
-                            }, {
-                                x: foundations[k].x,
-                                y: foundationY
-                            }, {
-                                x: dropBuffer,
-                                y: dropBuffer
-                            })) {
-                            added = tryAddToFoundation(movingCards[j].ID, k, cardMoveTime);
-                            if (added) {
-                                break;
-                            }
-                        }
-                    }
-                    if (!added) {
-                        for (var k = 0; k < tableaux.length; k++) {
-                            if (isInPos({
-                                    x: movingCards[j].image.position().left + (movingCards[j].image.width() / 2),
-                                    y: movingCards[j].image.position().top + (movingCards[j].image.height() / 2)
-                                }, {
-                                    x: tableaux[k].x,
-                                    y: tableauTop + ((gameAreaBoundaries.top + gameArea.height() - tableauTop) / 2)
-                                }, {
-                                    x: dropBuffer,
-                                    y: ((gameAreaBoundaries.top + gameArea.height() - tableauTop) / 2) + dropBuffer
-                                }) && canAddToTableau(movingCards[j].ID, k)) {
-                                var removed = false;
-                                var tableauFromIndex = -1;
-                                if (!(isFromDeck(movingCards[j].ID))) {
-                                    for (var l = 0; l < foundations.length; l++) {
-                                        if (isFromFoundation(movingCards[j].ID, l)) {
-                                            foundations[l].removeCard(movingCards[j].ID);
-                                            setPointsScore(-15);
-                                            removed = true;
-                                            break;
-                                        }
-                                    }
-                                    if (!removed) {
-                                        for (var l = 0; l < tableaux.length; l++) {
-                                            if (isFromTableau(movingCards[j].ID, l)) {
-                                                tableauFromIndex = l;
-                                                if (l != k) {
-                                                    tableaux[l].removeCard(movingCards[j].ID);
-                                                    removed = true;
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (k != tableauFromIndex) {
-                                    tableaux[k].addCard(movingCards[j].ID);
-                                    if (!removed) {
-                                        setPointsScore(5);
-                                    }
-                                    added = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (!added) {
-                        moveCardToLastPos(movingCards[j].ID, cardMoveTime);
-                    }
-                }
-            });
+                CARD_OBJECTS[cardID].cardImage.on("touchstart", function (event) {
+                    dragStart(event, $(this));
+                });
+
+                CARD_OBJECTS[cardID].cardImage.on("touchmove", function (event) {
+                    drag(event, $(this));
+                });
+
+                CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
+                    dragEnd(event, $(this));
+                });
+            }
         }
     }
 });
