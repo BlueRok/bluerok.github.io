@@ -563,7 +563,7 @@ $(function () {
     function dragStart(event, card) {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
-            if (isCardInLastPos(thisCardID) && !((CARD_OBJECTS[thisCardID].lastPosX == DECK.x) && (CARD_OBJECTS[thisCardID].lastPosY == DECK.y)) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable") && (movingCards.length == 0)) {
+            if (isCardInLastPos(thisCardID) && !((CARD_OBJECTS[thisCardID].lastPosX == DECK.x) && (CARD_OBJECTS[thisCardID].lastPosY == DECK.y)) && !(card.is(":animated")) && (CARD_OBJECTS[thisCardID].cardImage.attr("draggable") == "true") && (movingCards.length == 0)) {
                 console.log(CARD_OBJECTS[thisCardID].cardImage.attr("draggable"));
                 if (isTouchScreenDevice) {
                     event.preventDefault();
