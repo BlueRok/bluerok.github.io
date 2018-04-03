@@ -8,6 +8,7 @@ var timeScoreTime;
 var timeStart;
 var timeScoreTimer;
 var timeScoreArea;
+var difficultyScoreArea;
 var pointsScore = 0;
 var pointsScoreArea;
 var gameArea;
@@ -15,7 +16,6 @@ var solitaireDirectory;
 var resetDeckButtonSrc;
 var resetDeckButton;
 var buttonsArea;
-var playButton;
 var hardButton;
 var mediumButton;
 var easyButton;
@@ -55,8 +55,10 @@ $(function () {
     // Score
     scoreArea = wholeGameArea.find(".gameScoreArea");
     scoreArea.append("<div class=\"gameScoreTime\"></div>");
+    scoreArea.append("<div class=\"gameScoreDifficulty\"></div>");
     scoreArea.append("<div class=\"gameScorePoints\"></div>");
     timeScoreArea = scoreArea.find(".gameScoreTime");
+    difficultyScoreArea = scoreArea.find(".gameScoreDifficulty");
     pointsScoreArea = scoreArea.find(".gameScorePoints");
 
     // Play
@@ -69,18 +71,12 @@ $(function () {
 
     // Buttons
     buttonsArea = wholeGameArea.find(".gameButtonsArea");
-    buttonsArea.append("<button class=\"gameButtonsPlay\">Play</button>");
-    buttonsArea.append("<button class=\"gameButtonsHard\" hidden>Hard</button>");
-    buttonsArea.append("<button class=\"gameButtonsMedium\" hidden>Medium</button>");
-    buttonsArea.append("<button class=\"gameButtonsEasy\" hidden>Easy</button>");
-    playButton = buttonsArea.find(".gameButtonsPlay");
+    buttonsArea.append("<button class=\"gameButtonsHard\">Hard</button>");
+    buttonsArea.append("<button class=\"gameButtonsMedium\">Medium</button>");
+    buttonsArea.append("<button class=\"gameButtonsEasy\">Easy</button>");
     hardButton = buttonsArea.find(".gameButtonsHard");
     mediumButton = buttonsArea.find(".gameButtonsMedium");
     easyButton = buttonsArea.find(".gameButtonsEasy");
-    playButton.on("click", function (event) {
-        showDifficultyButtons(1000);
-        playButton.hide();
-    });
     hardButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Hard;
         startGame();
@@ -123,12 +119,6 @@ $(function () {
         }
     }
 
-    function showDifficultyButtons(time) {
-        hardButton.fadeIn(time);
-        mediumButton.fadeIn(time);
-        easyButton.fadeIn(time);
-    }
-
     function hideDifficultyButtons(time) {
         hardButton.slideUp(time);
         mediumButton.slideUp(time);
@@ -137,6 +127,19 @@ $(function () {
 
     function startGame() {
         calculateSizes();
+        switch (GAME_DIFFICULTY) {
+            case GAME_TYPES.Easy:
+                difficultyScoreArea.text("Easy");
+                break;
+            case GAME_TYPES.Medium:
+                difficultyScoreArea.text("Medium");
+                break;
+            case GAME_TYPES.Hard:
+                difficultyScoreArea.text("Hard");
+                break;
+            default:
+                break;
+        }
         handDealCards();
         gameStarted = true;
         scoreArea.css("background-color", buttonsArea.css("background-color"));
@@ -541,7 +544,7 @@ $(function () {
         topMargin = cardImageSize.height / 5;
         tableauTop = gameAreaBoundaries.top + cardImageSize.height + topMargin;
         tableauMaxCardPadding = cardImageSize.height / 4;
-        gameArea.css("height", cardImageSize.height + topMargin + (12 * tableauMaxCardPadding) + cardImageSize.height);
+        gameArea.css("height", $(window).height() - 40 - (parseInt(gameArea.css("margin-top").replace("px", "")) + parseInt(gameArea.css("padding-top").replace("px", "")) + parseInt(gameArea.css("margin-bottom").replace("px", "")) + parseInt(gameArea.css("padding-bottom").replace("px", ""))) - scoreArea.height() + "px");
         for (var i = 0; i < tableaux.length; i++) {
             tableaux[i].setX(gameAreaBoundaries.left + (gameArea.width() / tableaux.length * (i + 0.5)));
         }
@@ -766,7 +769,6 @@ $(function () {
                 }
             }
         } else {
-            playButton.hide();
             hideDifficultyButtons(0);
             GAME_DIFFICULTY = GAME_TYPES.Hard;
             startGame();
