@@ -569,7 +569,7 @@ $(function () {
                 }
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
-                CARD_OBJECTS[thisCardID].cardImage.css("z-index", CARD_OBJECTS[thisCardID].cardImage.css("z-index") + 13);
+                CARD_OBJECTS[thisCardID].cardImage.css("z-index", CARD_OBJECTS[thisCardID].cardImage.css("z-index") + (tableaux.length + 13));
                 movingCards = [{
                     ID: thisCardID,
                     image: card,
