@@ -2,6 +2,9 @@ var isTouchScreenDevice;
 var autoScrollTimer;
 $(function () {
     isTouchScreenDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window);
+    function parseBoolean(value) {
+        return value == "true"
+    }
     
     var header = $("header");
     var nav;

@@ -563,7 +563,7 @@ $(function () {
     function dragStart(event, card) {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
-            if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && (CARD_OBJECTS[thisCardID].cardImage.attr("draggable") == "true") && (movingCards.length == 0)) {
+            if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && parseBoolean(CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) && (movingCards.length == 0)) {
                 if (isTouchScreenDevice) {
                     event.preventDefault();
                 }
@@ -600,7 +600,7 @@ $(function () {
 
     function drag(event, card) {
         var thisCardID = parseInt(card.attr("data-cardID"));
-        if (gameStarted && !(card.is(":animated")) && (CARD_OBJECTS[thisCardID].cardImage.attr("draggable") == "true")) {
+        if (gameStarted && !(card.is(":animated")) && parseBoolean(CARD_OBJECTS[thisCardID].cardImage.attr("draggable"))) {
             for (var j = 0; j < movingCards.length; j++) {
                 if (event.pageX != 0 && event.pageY != 0) {
                     var posX = event.pageX - movingCards[0].selectedXOffset;
