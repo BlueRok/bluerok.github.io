@@ -766,12 +766,10 @@ $(function () {
                 }
             }
         } else {
-            var msg = "Please ";
-            if (playButton.is(":visible")) {
-                msg = msg.concat("click \"Play\", then ");
-            }
-            msg = msg.concat("select your difficulty to start");
-            alert(msg);
+            playButton.hide();
+            hideDifficultyButtons(0);
+            GAME_DIFFICULTY = GAME_TYPES.Hard;
+            startGame();
         }
     });
     for (var rank = 1; rank <= 13; rank++) {
