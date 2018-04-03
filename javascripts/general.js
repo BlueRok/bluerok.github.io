@@ -1,8 +1,9 @@
 var isTouchScreenDevice;
+var parseBoolean;
 var autoScrollTimer;
 $(function () {
     isTouchScreenDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window);
-    function parseBoolean(value) {
+    parseBoolean = function (value) {
         return value == "true"
     }
     
