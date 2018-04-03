@@ -65,6 +65,7 @@ $(function () {
     resetDeckButtonSrc = solitaireDirectory + "resetDeck.png";
     gameArea.append("<img class=\"card\" src=\"" + resetDeckButtonSrc + "\" draggable=false>");
     resetDeckButton = gameArea.find("img[src$=\"" + resetDeckButtonSrc + "\"]");
+    resetDeckButton.css("z-index", 0);
 
     // Buttons
     buttonsArea = wholeGameArea.find(".gameButtonsArea");
@@ -307,6 +308,7 @@ $(function () {
             this.x = undefined;
             gameArea.append("<img class=\"card\" src=\"" + foundationSrc + "\" draggable=false>");
             this.background = $("img[src$=\"" + foundationSrc + "\"]").last();
+            this.background.css("z-index", 0);
             this.cardIDs = [];
         }
 
@@ -412,7 +414,7 @@ $(function () {
     }
 
     function setFoundationCardZindex(cardID) {
-        CARD_OBJECTS[cardID].cardImage.css("z-index", CARD_OBJECTS[cardID].rank - 1);
+        CARD_OBJECTS[cardID].cardImage.css("z-index", CARD_OBJECTS[cardID].rank);
     }
 
     // Tableaux
@@ -597,9 +599,6 @@ $(function () {
     }
 
     function drag(event, card) {
-        if (isTouchScreenDevice) {
-            event.preventDefault();
-        }
         var thisCardID = parseInt(card.attr("data-cardID"));
         if (gameStarted && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
             for (var j = 0; j < movingCards.length; j++) {
