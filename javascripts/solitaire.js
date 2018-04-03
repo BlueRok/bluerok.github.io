@@ -564,13 +564,12 @@ $(function () {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
             if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && (CARD_OBJECTS[thisCardID].cardImage.attr("draggable") == "true") && (movingCards.length == 0)) {
-                console.log(CARD_OBJECTS[thisCardID].cardImage.attr("draggable"));
                 if (isTouchScreenDevice) {
                     event.preventDefault();
                 }
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
-                CARD_OBJECTS[thisCardID].cardImage.css("z-index", tableaux.length + 13);
+                CARD_OBJECTS[thisCardID].cardImage.css("z-index", CARD_OBJECTS[thisCardID].cardImage.css("z-index") + 13);
                 movingCards = [{
                     ID: thisCardID,
                     image: card,
@@ -584,6 +583,7 @@ $(function () {
                         if (thisCardIndex < (tableaux[j].cardIDs.length - 1)) {
                             for (var k = (thisCardIndex + 1); k < tableaux[j].cardIDs.length; k++) {
                                 var belowCardID = tableaux[j].cardIDs[k];
+                                CARD_OBJECTS[belowCardID].cardImage.css("z-index", CARD_OBJECTS[belowCardID].cardImage.css("z-index") + 13);
                                 movingCards[movingCards.length] = {
                                     ID: belowCardID,
                                     image: CARD_OBJECTS[belowCardID].cardImage,
@@ -600,7 +600,7 @@ $(function () {
 
     function drag(event, card) {
         var thisCardID = parseInt(card.attr("data-cardID"));
-        if (gameStarted && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
+        if (gameStarted && !(card.is(":animated")) && (CARD_OBJECTS[thisCardID].cardImage.attr("draggable") == "true")) {
             for (var j = 0; j < movingCards.length; j++) {
                 if (event.pageX != 0 && event.pageY != 0) {
                     var posX = event.pageX - movingCards[0].selectedXOffset;
@@ -628,6 +628,7 @@ $(function () {
 
     function dragEnd(event, card) {
         for (var j = 0; j < movingCards.length; j++) {
+            CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index", CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index") - 13);
             var added = false;
             for (var k = 0; k < foundations.length; k++) {
                 if (isInPos({
@@ -782,7 +783,6 @@ $(function () {
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("drag", function (event) {
-                    console.log("e");
                     drag(event, $(this));
                 });
 
