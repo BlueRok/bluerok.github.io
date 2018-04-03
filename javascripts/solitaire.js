@@ -627,9 +627,6 @@ $(function () {
     }
 
     function dragEnd(event, card) {
-        if (isTouchScreenDevice) {
-            event.preventDefault();
-        }
         for (var j = 0; j < movingCards.length; j++) {
             var added = false;
             for (var k = 0; k < foundations.length; k++) {
