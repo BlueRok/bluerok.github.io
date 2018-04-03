@@ -563,7 +563,9 @@ $(function () {
             var thisCardID = parseInt(card.attr("data-cardID"));
             if (isCardInLastPos(thisCardID) && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable") && (movingCards.length == 0)) {
                 console.log(CARD_OBJECTS[thisCardID].cardImage.attr("draggable"));
-                event.preventDefault();
+                if (isTouchScreenDevice) {
+                    event.preventDefault();
+                }
                 CARD_OBJECTS[thisCardID].selectedXOffset = event.pageX - CARD_OBJECTS[thisCardID].lastPosX;
                 CARD_OBJECTS[thisCardID].selectedYOffset = event.pageY - CARD_OBJECTS[thisCardID].lastPosY;
                 CARD_OBJECTS[thisCardID].cardImage.css("z-index", tableaux.length + 13);
@@ -595,7 +597,9 @@ $(function () {
     }
 
     function drag(event, card) {
-        event.preventDefault();
+        if (isTouchScreenDevice) {
+            event.preventDefault();
+        }
         var thisCardID = parseInt(card.attr("data-cardID"));
         if (gameStarted && !(card.is(":animated")) && CARD_OBJECTS[thisCardID].cardImage.attr("draggable")) {
             for (var j = 0; j < movingCards.length; j++) {
@@ -624,7 +628,9 @@ $(function () {
     }
 
     function dragEnd(event, card) {
-        event.preventDefault();
+        if (isTouchScreenDevice) {
+            event.preventDefault();
+        }
         for (var j = 0; j < movingCards.length; j++) {
             var added = false;
             for (var k = 0; k < foundations.length; k++) {
@@ -780,6 +786,7 @@ $(function () {
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("drag", function (event) {
+                    console.log("e");
                     drag(event, $(this));
                 });
 
