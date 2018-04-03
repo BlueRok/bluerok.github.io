@@ -583,7 +583,7 @@ $(function () {
                         if (thisCardIndex < (tableaux[j].cardIDs.length - 1)) {
                             for (var k = (thisCardIndex + 1); k < tableaux[j].cardIDs.length; k++) {
                                 var belowCardID = tableaux[j].cardIDs[k];
-                                CARD_OBJECTS[belowCardID].cardImage.css("z-index", CARD_OBJECTS[belowCardID].cardImage.css("z-index") + 13);
+                                CARD_OBJECTS[belowCardID].cardImage.css("z-index", CARD_OBJECTS[belowCardID].cardImage.css("z-index") + (tableaux.length + 13));
                                 movingCards[movingCards.length] = {
                                     ID: belowCardID,
                                     image: CARD_OBJECTS[belowCardID].cardImage,
@@ -628,7 +628,7 @@ $(function () {
 
     function dragEnd(event, card) {
         for (var j = 0; j < movingCards.length; j++) {
-            CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index", CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index") - 13);
+            CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index", CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index") - (tableaux.length + 13));
             var added = false;
             for (var k = 0; k < foundations.length; k++) {
                 if (isInPos({
