@@ -795,19 +795,15 @@ $(function () {
         for (suit = 1; suit <= 4; suit++) {
             var cardID = getCardID(rank, suit);
             if (!isTouchScreenDevice) {
-                console.log("wtf");
                 CARD_OBJECTS[cardID].cardImage.on("dragstart", function (event) {
-                console.log("wtfds");
                     dragStart(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("drag", function (event) {
-                console.log("wtfdd");
                     drag(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("dragend", function (event) {
-                console.log("wtfde");
                     dragEnd(event, $(this));
                 });
             } else {
