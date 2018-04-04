@@ -795,6 +795,7 @@ $(function () {
         for (suit = 1; suit <= 4; suit++) {
             var cardID = getCardID(rank, suit);
             if (!isTouchScreenDevice) {
+                console.log("wtf");
                 CARD_OBJECTS[cardID].cardImage.on("dragstart", function (event) {
                     dragStart(event, $(this));
                 });
