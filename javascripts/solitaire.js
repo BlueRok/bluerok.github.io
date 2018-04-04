@@ -802,9 +802,9 @@ $(function () {
                                     if (GAME_DIFFICULTY == GAME_TYPES.Easy) {
                                         setPointsScore(-100);
                                     }
+                                    CARD_OBJECTS[DECK.cardIDs[0]].cardImage.attr("draggable", false);
+                                    reset = true;
                                 }
-                                CARD_OBJECTS[DECK.cardIDs[0]].cardImage.attr("draggable", false);
-                                reset = true;
                                 finished = true;
                             }
                             if (finished) {
