@@ -816,7 +816,7 @@ $(function () {
                 CARD_OBJECTS[cardID].cardImage.on("touchmove", function (event) {
                     console.log("mtm");
                     drag(event, $(this));
-                    event.stopImmediatePropagation();
+                    event.stopPropagation();
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
