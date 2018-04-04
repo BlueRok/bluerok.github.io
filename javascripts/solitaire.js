@@ -705,13 +705,13 @@ $(function () {
     }
 
     gameContainer.on("touchstart", function (event) {
-        event.preventDefault();
     });
 
     gameContainer.on("touchmove", function (event) {
     });
 
     gameContainer.on("touchend", function (event) {
+        event.preventDefault();
     });
 
     gameArea.on("click", function (event) {
