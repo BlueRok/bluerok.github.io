@@ -9,6 +9,8 @@ var timeStart;
 var timeScoreTimer;
 var timeScoreArea;
 var difficultyScoreArea;
+var movesScore = 0;
+var movesScoreArea;
 var pointsScore = 0;
 var pointsScoreArea;
 var gameArea;
@@ -57,10 +59,13 @@ $(function () {
     scoreArea = gameContainer.find(".gameScoreArea");
     scoreArea.append("<div class=\"gameScoreTime\"></div>");
     scoreArea.append("<div class=\"gameScoreDifficulty\"></div>");
+    scoreArea.append("<div class=\"gameScoreMoves\"></div>");
     scoreArea.append("<div class=\"gameScorePoints\"></div>");
     timeScoreArea = scoreArea.find(".gameScoreTime");
     difficultyScoreArea = scoreArea.find(".gameScoreDifficulty");
+    movesScoreArea = scoreArea.find(".gameScoreMoves");
     pointsScoreArea = scoreArea.find(".gameScorePoints");
+    scoreArea.children().css("width", (100 / scoreArea.children().length) + "%");
 
     // Play
     gameArea = gameContainer.find(".gameArea");
@@ -110,6 +115,11 @@ $(function () {
         }
     }
 
+    function setMovesScore() {
+        movesScore++;
+        movesScoreArea.text("Moves: " + movesScore);
+    }
+
     function setPointsScore(change) {
         if (!gameFinished) {
             pointsScore += change;
@@ -146,6 +156,8 @@ $(function () {
         scoreArea.css("background-color", buttonsArea.css("background-color"));
         timeStart = new Date().getTime();
         setTimeScore();
+        movesScore--;
+        setMovesScore();
         setPointsScore(0);
         timeScoreTimer = setInterval(function () {
             setTimeScore(1);
@@ -571,15 +583,6 @@ $(function () {
     });
 
     // Action
-    isDeckDraggable = function () {
-        for (var i = 0; i < DECK.cardIDs.length; i++) {
-            var cardID = DECK.cardIDs[i];
-            if (parseBoolean(CARD_OBJECTS[cardID].cardImage.attr("draggable"))) {
-                console.log(cardID);
-            }
-        }
-    };
-
     function dragStart(event, card) {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
@@ -647,6 +650,7 @@ $(function () {
     }
 
     function dragEnd(card) {
+        var movesScoreSet = false;
         for (var j = 0; j < movingCards.length; j++) {
             CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index", parseInt(CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index")) - (tableaux.length + 13));
             var added = false;
@@ -716,37 +720,13 @@ $(function () {
             }
             if (!added) {
                 moveCardToLastPos(movingCards[j].ID, cardMoveTime);
+            } else if (!movesScoreSet) {
+                setMovesScore();
+                movesScoreSet = true;
             }
         }
         movingCards = [];
     }
-
-    gameArea.on("touchstart", function (event) {
-        event.stopPropagation();
-        console.log("ts");
-    });
-
-    gameArea.on("touchcancel", function (event) {
-        event.stopPropagation();
-        console.log("tc");
-    });
-
-    gameArea.on("touchend", function (event) {
-        event.stopPropagation();
-        console.log("te");
-    });
-
-    gameContainer.on("touchstart", function (event) {
-        console.log("tsc");
-    });
-
-    gameContainer.on("touchcancel", function (event) {
-        console.log("tcc");
-    });
-
-    gameContainer.on("touchend", function (event) {
-        console.log("tec");
-    });
 
     gameArea.on("click", function (event) {
         event.preventDefault();
@@ -816,6 +796,7 @@ $(function () {
                             }
                         },
                         deckDealTime / GAME_DIFFICULTY);
+                    setMovesScore();
                 }
             }
         } else {
@@ -840,20 +821,16 @@ $(function () {
                     dragEnd(event, $(this));
                 });
             } else {
-                console.log("touchable");
                 CARD_OBJECTS[cardID].cardImage.on("touchstart", function (event) {
-                    console.log("mts");
                     dragStart(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchmove", function (event) {
-                    console.log("mtm");
                     drag(event, $(this));
                     event.stopPropagation();
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
-                    console.log("mte");
                     dragEnd($(this));
                 });
 
