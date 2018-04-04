@@ -704,14 +704,8 @@ $(function () {
         movingCards = [];
     }
 
-    gameContainer.on("touchstart", function (event) {
-    });
-
-    gameContainer.on("touchmove", function (event) {
-    });
-
-    gameArea.on("touchend", function (event) {
-        event.preventDefault();
+    gameArea.on("touchcancel", function (event) {
+        console.log("tc");
     });
 
     gameArea.on("click", function (event) {

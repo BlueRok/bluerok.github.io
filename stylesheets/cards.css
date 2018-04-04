@@ -5,6 +5,7 @@
 .gameContainer {
     width: 100%;
     background-color: rgba(0, 140, 40, 1);
+    -webkit-touch-action: none;
     -webkit-touch-callout: none;
     user-select: none;
 }
