@@ -708,6 +708,18 @@ $(function () {
         console.log("tc");
     });
 
+    gameArea.on("touchend", function (event) {
+        console.log("te");
+    });
+    
+    gameContainer.on("touchcancel", function (event) {
+        console.log("tcc");
+    });
+
+    gameContainer.on("touchend", function (event) {
+        console.log("tec");
+    });
+
     gameArea.on("click", function (event) {
         event.preventDefault();
         if (gameStarted) {
