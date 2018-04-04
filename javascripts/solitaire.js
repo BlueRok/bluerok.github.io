@@ -704,12 +704,23 @@ $(function () {
         movingCards = [];
     }
 
+    gameArea.on("touchstart", function (event) {
+        event.stopPropagation();
+        console.log("ts");
+    });
+
     gameArea.on("touchcancel", function (event) {
+        event.stopPropagation();
         console.log("tc");
     });
 
     gameArea.on("touchend", function (event) {
+        event.stopPropagation();
         console.log("te");
+    });
+
+    gameContainer.on("touchstart", function (event) {
+        console.log("tsc");
     });
     
     gameContainer.on("touchcancel", function (event) {
