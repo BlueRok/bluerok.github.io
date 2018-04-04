@@ -705,6 +705,7 @@ $(function () {
     }
 
     gameArea.on("click", function (event) {
+        event.preventDefault();
         if (gameStarted) {
             if (isInPos({
                     x: event.pageX,
