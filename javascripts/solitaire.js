@@ -49,6 +49,7 @@ var foundations = [];
 var tableauMaxCardPadding;
 var tableauTop;
 var tableaux = [];
+var isDeckDraggable;
 $(function () {
     gameContainer = $("#solitaireGame");
 
@@ -563,6 +564,14 @@ $(function () {
     });
 
     // Action
+    isDeckDraggable = function () {
+        for (var i=0;i<DECK.cardIDs.length;i++){
+            var cardID = DECK.cardIDs[i];
+            if (CARD_OBJECTS[cardID].cardImage.attr("draggable")){
+                console.log(cardID);
+            }
+        }
+    };
     function dragStart(event, card) {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
