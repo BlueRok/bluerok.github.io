@@ -710,7 +710,7 @@ $(function () {
     gameContainer.on("touchmove", function (event) {
     });
 
-    gameContainer.on("touchend", function (event) {
+    gameArea.on("touchend", function (event) {
         event.preventDefault();
     });
 
