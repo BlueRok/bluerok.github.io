@@ -704,6 +704,16 @@ $(function () {
         movingCards = [];
     }
 
+    gameContainer.on("touchstart", function (event) {
+        event.preventDefault();
+    });
+
+    gameContainer.on("touchmove", function (event) {
+    });
+
+    gameContainer.on("touchend", function (event) {
+    });
+
     gameArea.on("click", function (event) {
         event.preventDefault();
         if (gameStarted) {
