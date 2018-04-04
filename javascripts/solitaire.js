@@ -629,7 +629,7 @@ $(function () {
         }
     }
 
-    function dragEnd(event, card) {
+    function dragEnd(card) {
         for (var j = 0; j < movingCards.length; j++) {
             CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index", parseInt(CARD_OBJECTS[movingCards[j].ID].cardImage.css("z-index")) - (tableaux.length + 13));
             var added = false;
@@ -821,7 +821,11 @@ $(function () {
 
                 CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
                     console.log("mte");
-                    dragEnd(event, $(this));
+                    dragEnd($(this));
+                });
+                
+                CARD_OBJECTS[cardID].cardImage.on("touchcancel", function (event) {
+                    $(this).trigger("touchend");
                 });
             }
         }
