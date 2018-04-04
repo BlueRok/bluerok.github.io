@@ -1,12 +1,12 @@
 .card {
     position: absolute;
     -webkit-touch-callout: none;
+    user-select: none;
 }
 
 .gameContainer {
     width: 100%;
     background-color: rgba(0, 140, 40, 1);
-    user-select: none;
 }
 
 .gameScoreArea,
