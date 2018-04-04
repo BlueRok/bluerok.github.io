@@ -1,4 +1,4 @@
-var wholeGameArea;
+var gameContainer;
 var scoreArea;
 var timeScore;
 var timeScoreHrs;
@@ -50,10 +50,10 @@ var tableauMaxCardPadding;
 var tableauTop;
 var tableaux = [];
 $(function () {
-    wholeGameArea = $("#solitaireGame");
+    gameContainer = $("#solitaireGame");
 
     // Score
-    scoreArea = wholeGameArea.find(".gameScoreArea");
+    scoreArea = gameContainer.find(".gameScoreArea");
     scoreArea.append("<div class=\"gameScoreTime\"></div>");
     scoreArea.append("<div class=\"gameScoreDifficulty\"></div>");
     scoreArea.append("<div class=\"gameScorePoints\"></div>");
@@ -62,7 +62,7 @@ $(function () {
     pointsScoreArea = scoreArea.find(".gameScorePoints");
 
     // Play
-    gameArea = wholeGameArea.find(".gameArea");
+    gameArea = gameContainer.find(".gameArea");
     solitaireDirectory = cardsDirectory + "solitaire/";
     resetDeckButtonSrc = solitaireDirectory + "resetDeck.png";
     gameArea.append("<img class=\"card\" src=\"" + resetDeckButtonSrc + "\" draggable=false>");
@@ -70,7 +70,7 @@ $(function () {
     resetDeckButton.css("z-index", 0);
 
     // Buttons
-    buttonsArea = wholeGameArea.find(".gameButtonsArea");
+    buttonsArea = gameContainer.find(".gameButtonsArea");
     buttonsArea.append("<button class=\"gameButtonsHard\">Hard</button>");
     buttonsArea.append("<button class=\"gameButtonsMedium\">Medium</button>");
     buttonsArea.append("<button class=\"gameButtonsEasy\">Easy</button>");
@@ -155,7 +155,7 @@ $(function () {
         alert("You won!\nYou took " + timeScoreTime + "\n\nRestart to play again");
     }
 
-    scoreArea.css("background-color", wholeGameArea.css("background-color"));
+    scoreArea.css("background-color", gameContainer.css("background-color"));
     generateCards(gameArea);
 
     // Deck
@@ -519,8 +519,8 @@ $(function () {
     // Resizing
     function calculateSizes() {
         gameAreaBoundaries = {
-            left: wholeGameArea.position().left + parseInt(wholeGameArea.css("margin-left").replace("px", "")) + parseInt(gameArea.css("margin-left").replace("px", "")) + parseInt(gameArea.css("padding-left").replace("px", "")),
-            top: wholeGameArea.position().top + parseInt(wholeGameArea.css("margin-top").replace("px", "")) + parseInt(scoreArea.css("height").replace("px", "")) + parseInt(gameArea.css("margin-top").replace("px", "")) + parseInt(gameArea.css("padding-top").replace("px", ""))
+            left: gameContainer.position().left + parseInt(gameContainer.css("margin-left").replace("px", "")) + parseInt(gameArea.css("margin-left").replace("px", "")) + parseInt(gameArea.css("padding-left").replace("px", "")),
+            top: gameContainer.position().top + parseInt(gameContainer.css("margin-top").replace("px", "")) + parseInt(scoreArea.css("height").replace("px", "")) + parseInt(gameArea.css("margin-top").replace("px", "")) + parseInt(gameArea.css("padding-top").replace("px", ""))
         };
         DECK.x = gameAreaBoundaries.left;
         DECK.y = gameAreaBoundaries.top;

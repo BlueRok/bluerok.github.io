@@ -1,12 +1,12 @@
 .card {
     position: absolute;
-    user-select: none;
     -webkit-touch-callout: none;
 }
 
-#solitaireGame {
+.gameContainer {
     width: 100%;
     background-color: rgba(0, 140, 40, 1);
+    user-select: none;
 }
 
 .gameScoreArea,
