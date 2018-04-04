@@ -565,13 +565,14 @@ $(function () {
 
     // Action
     isDeckDraggable = function () {
-        for (var i=0;i<DECK.cardIDs.length;i++){
+        for (var i = 0; i < DECK.cardIDs.length; i++) {
             var cardID = DECK.cardIDs[i];
-            if (CARD_OBJECTS[cardID].cardImage.attr("draggable")){
+            if (parseBoolean(CARD_OBJECTS[cardID].cardImage.attr("draggable"))) {
                 console.log(cardID);
             }
         }
     };
+
     function dragStart(event, card) {
         if (gameStarted && !(card.is(":animated"))) {
             var thisCardID = parseInt(card.attr("data-cardID"));
@@ -731,7 +732,7 @@ $(function () {
     gameContainer.on("touchstart", function (event) {
         console.log("tsc");
     });
-    
+
     gameContainer.on("touchcancel", function (event) {
         console.log("tcc");
     });
@@ -843,7 +844,7 @@ $(function () {
                     console.log("mte");
                     dragEnd($(this));
                 });
-                
+
                 CARD_OBJECTS[cardID].cardImage.on("touchcancel", function (event) {
                     $(this).trigger("touchend");
                 });
