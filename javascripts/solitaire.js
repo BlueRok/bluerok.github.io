@@ -759,6 +759,8 @@ $(function () {
                 }
                 if (deckDealTimer == undefined) {
                     var i = 0;
+                    var finished = false;
+                    var reset = false;
                     deckDealTimer = setInterval(function () {
                             if (deckFaceUpCards < DECK.cardIDs.length) {
                                 var cardID = DECK.cardIDs[DECK.cardIDs.length - 1 - deckFaceUpCards];
@@ -784,6 +786,9 @@ $(function () {
                                 }
                                 deckFaceUpCards++;
                                 i++;
+                                if (i >= GAME_DIFFICULTY) {
+                                    finished = true;
+                                }
                             } else {
                                 if (i == 0) {
                                     resetDeck(0, cardMoveTime);
@@ -791,14 +796,14 @@ $(function () {
                                         setPointsScore(-100);
                                     }
                                 }
-                                i = GAME_DIFFICULTY;
+                                CARD_OBJECTS[DECK.cardIDs[0]].cardImage.attr("draggable", false);
+                                reset = true;
+                                finished = true;
                             }
-                            if (i >= GAME_DIFFICULTY) {
-                                var lastCardID = deckFaceUpCards;
-                                if (lastCardID == 0) {
-                                    lastCardID = DECK.cardIDs.length;
+                            if (finished) {
+                                if (!reset) {
+                                    CARD_OBJECTS[DECK.cardIDs[DECK.cardIDs.length - 1 - (deckFaceUpCards - 1)]].cardImage.attr("draggable", true);
                                 }
-                                CARD_OBJECTS[DECK.cardIDs[DECK.cardIDs.length - 1 - (lastCardID - 1)]].cardImage.attr("draggable", true);
                                 clearInterval(deckDealTimer);
                                 deckDealTimer = undefined;
                             }
