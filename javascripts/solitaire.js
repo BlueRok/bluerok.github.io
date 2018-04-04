@@ -346,7 +346,9 @@ $(function () {
             this.cardIDs = this.cardIDs.filter(function (item) {
                 return item != cardID;
             });
-            CARD_OBJECTS[this.cardIDs[this.cardIDs.length - 1]].cardImage.attr("draggable", true);
+            if (this.cardIDs.length > 0) {
+                CARD_OBJECTS[this.cardIDs[this.cardIDs.length - 1]].cardImage.attr("draggable", true);
+            }
         }
     }
 
@@ -388,7 +390,7 @@ $(function () {
     function tryAddToFoundation(cardID, index, moveTime) {
         var added = false;
         var cardImage = CARD_OBJECTS[cardID].cardImage;
-        if (canAddToFoundation(cardID, index) && (movingCards.length == 1)) {
+        if (canAddToFoundation(cardID, index) && (movingCards.length <= 1)) {
             var foundationFromIndex = -1;
             if (!(isFromDeck(cardID))) {
                 var removed = false;
