@@ -807,15 +807,19 @@ $(function () {
                     dragEnd(event, $(this));
                 });
             } else {
+                console.log("touchable");
                 CARD_OBJECTS[cardID].cardImage.on("touchstart", function (event) {
+                    console.log("mts");
                     dragStart(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchmove", function (event) {
+                    console.log("mtm");
                     drag(event, $(this));
                 });
 
                 CARD_OBJECTS[cardID].cardImage.on("touchend", function (event) {
+                    console.log("mte");
                     dragEnd(event, $(this));
                 });
             }
