@@ -288,6 +288,7 @@ $(function () {
         gameFinished = true;
         clearInterval(timeScoreTimer);
         resetDeckButton.hide();
+        movingCards = [];
         for (var rank = 1; rank <= 13; rank++) {
             for (var suit = 1; suit <= 4; suit++) {
                 var cardID = getCardID(rank, suit);
@@ -329,6 +330,9 @@ $(function () {
         addCard(cardID, moveTime) {
             this.cardIDs = this.cardIDs.concat([cardID]);
             this.setCardPos(cardID);
+            if (this.cardIDs.length > 1) {
+                CARD_OBJECTS[this.cardIDs[this.cardIDs.length - 2]].cardImage.attr("draggable", false);
+            }
             setFoundationCardZindex(cardID);
             moveCardToLastPos(cardID, moveTime);
         }
@@ -341,7 +345,8 @@ $(function () {
         removeCard(cardID) {
             this.cardIDs = this.cardIDs.filter(function (item) {
                 return item != cardID;
-            })
+            });
+            CARD_OBJECTS[this.cardIDs[this.cardIDs.length - 1]].cardImage.attr("draggable", true);
         }
     }
 
@@ -383,7 +388,7 @@ $(function () {
     function tryAddToFoundation(cardID, index, moveTime) {
         var added = false;
         var cardImage = CARD_OBJECTS[cardID].cardImage;
-        if (canAddToFoundation(cardID, index)) {
+        if (canAddToFoundation(cardID, index) && (movingCards.length == 1)) {
             var foundationFromIndex = -1;
             if (!(isFromDeck(cardID))) {
                 var removed = false;
