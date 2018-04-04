@@ -706,6 +706,7 @@ $(function () {
 
     gameArea.on("touchcancel", function (event) {
         console.log("tc");
+        event.preventDefault();
     });
 
     gameArea.on("touchend", function (event) {
@@ -714,6 +715,7 @@ $(function () {
     
     gameContainer.on("touchcancel", function (event) {
         console.log("tcc");
+        event.preventDefault();
     });
 
     gameContainer.on("touchend", function (event) {
