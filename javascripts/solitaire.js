@@ -138,15 +138,16 @@ $(function () {
 
     function startGame() {
         calculateSizes();
+        difficultyScoreArea.text("Difficulty: ");
         switch (GAME_DIFFICULTY) {
             case GAME_TYPES.Easy:
-                difficultyScoreArea.text("Easy");
+                difficultyScoreArea.text(difficultyScoreArea.text() + "Easy");
                 break;
             case GAME_TYPES.Medium:
-                difficultyScoreArea.text("Medium");
+                difficultyScoreArea.text(difficultyScoreArea.text() + "Medium");
                 break;
             case GAME_TYPES.Hard:
-                difficultyScoreArea.text("Hard");
+                difficultyScoreArea.text(difficultyScoreArea.text() + "Hard");
                 break;
             default:
                 break;
