@@ -14,10 +14,13 @@ var movesScoreArea;
 var pointsScore = 0;
 var pointsScoreArea;
 var gameArea;
+var initialClickCount = 0;
 var solitaireDirectory;
 var resetDeckButtonSrc;
 var resetDeckButton;
 var buttonsArea;
+var playButton;
+var instructionsButton;
 var hardButton;
 var mediumButton;
 var easyButton;
@@ -28,7 +31,8 @@ var GAME_TYPES = {
     Medium: 2,
     Hard: 3
 };
-var GAME_DIFFICULTY = GAME_TYPES.Hard;
+var defaultDifficulty = GAME_TYPES.Hard
+var GAME_DIFFICULTY = defaultDifficulty;
 var gameLoaded = false;
 var gameStarted = false;
 var gameFinished = false;
@@ -77,26 +81,43 @@ $(function () {
 
     // Buttons
     buttonsArea = gameContainer.find(".gameButtonsArea");
-    buttonsArea.append("<button class=\"gameButtonsHard\">Hard</button>");
-    buttonsArea.append("<button class=\"gameButtonsMedium\">Medium</button>");
-    buttonsArea.append("<button class=\"gameButtonsEasy\">Easy</button>");
+    buttonsArea.append("<button class=\"gameButtonsPlay\">Play</button>");
+    buttonsArea.append("<button class=\"gameButtonsInstructions\">Instructions</button>");
+    buttonsArea.append("<button class=\"gameButtonsHard\" hidden>Hard</button>");
+    buttonsArea.append("<button class=\"gameButtonsMedium\" hidden>Medium</button>");
+    buttonsArea.append("<button class=\"gameButtonsEasy\" hidden>Easy</button>");
+    playButton = buttonsArea.find(".gameButtonsPlay");
+    instructionsButton = buttonsArea.find(".gameButtonsInstructions");
     hardButton = buttonsArea.find(".gameButtonsHard");
     mediumButton = buttonsArea.find(".gameButtonsMedium");
     easyButton = buttonsArea.find(".gameButtonsEasy");
+    playButton.on("click", function (event) {
+        playButtonClicked();
+    });
+    instructionsButton.on("click", function (event) {
+        var xhr_instructions = new XMLHttpRequest();
+        xhr_instructions.open("GET", loadPartsDirectory + "solitaireInstructions.txt", true);
+        xhr_instructions.onreadystatechange = function () {
+            if (xhr_instructions.readyState == 4 && xhr_instructions.status == 200) {
+                alert(xhr_instructions.responseText);
+            }
+        };
+        xhr_instructions.send(null);
+    });
     hardButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Hard;
-        startGame();
         hideDifficultyButtons(250);
+        startGame();
     });
     mediumButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Medium;
-        startGame();
         hideDifficultyButtons(500);
+        startGame();
     });
     easyButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Easy;
-        startGame();
         hideDifficultyButtons(1000);
+        startGame();
     });
 
     function setTimeScore(change) {
@@ -130,8 +151,38 @@ $(function () {
         }
     }
 
+    function initialClick() {
+        initialClickCount++;
+        switch (initialClickCount) {
+            case 1:
+                playButtonClicked();
+                break;
+            case 2:
+                hideDifficultyButtons(0);
+                GAME_DIFFICULTY = defaultDifficulty;
+                startGame();
+                break;
+            default:
+                break;
+        }
+    }
+
+    function playButtonClicked() {
+        playButton.slideUp(0);
+        instructionsButton.slideUp(0);
+        showDifficultyButtons(0);
+    }
+
+    function showDifficultyButtons(time) {
+        hardButton.slideDown(time);
+        mediumButton.slideDown(time);
+        easyButton.slideDown(time);
+    }
+
     function hideDifficultyButtons(time) {
-        hardButton.slideUp(time);
+        hardButton.slideUp(time, function () {
+            calculateSizes();
+        });
         mediumButton.slideUp(time);
         easyButton.slideUp(time);
     }
@@ -565,7 +616,8 @@ $(function () {
         topMargin = cardImageSize.height / 5;
         tableauTop = gameAreaBoundaries.top + cardImageSize.height + topMargin;
         tableauMaxCardPadding = cardImageSize.height / 4;
-        gameArea.css("height", $(window).height() - 40 - (parseInt(gameArea.css("margin-top").replace("px", "")) + parseInt(gameArea.css("padding-top").replace("px", "")) + parseInt(gameArea.css("margin-bottom").replace("px", "")) + parseInt(gameArea.css("padding-bottom").replace("px", ""))) - scoreArea.height() + "px");
+        gameContainer.css("height", $(window).height() - 40);
+        gameArea.css("height", gameContainer.height() - (parseInt(gameArea.css("margin-top").replace("px", "")) + parseInt(gameArea.css("padding-top").replace("px", "")) + parseInt(gameArea.css("margin-bottom").replace("px", "")) + parseInt(gameArea.css("padding-bottom").replace("px", ""))) - scoreArea.height() - buttonsArea.height() + "px");
         for (var i = 0; i < tableaux.length; i++) {
             tableaux[i].setX(gameAreaBoundaries.left + (gameArea.width() / tableaux.length * (i + 0.5)));
         }
@@ -801,9 +853,7 @@ $(function () {
                 }
             }
         } else {
-            hideDifficultyButtons(0);
-            GAME_DIFFICULTY = GAME_TYPES.Hard;
-            startGame();
+            initialClick();
         }
     });
     for (var rank = 1; rank <= 13; rank++) {

@@ -26,7 +26,7 @@ var cardImageRatio = 3.5 / 2.5;
 var cardImageSize;
 var cardsDirectory = imagesDirectory + "cards/";
 var cardBackImage = cardsDirectory + "back.png";
-var cardMaxWidth = 90;
+var cardMaxWidth = 100;
 var cardFlipTime = 250;
 
 class Card {
