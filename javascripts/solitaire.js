@@ -38,10 +38,10 @@ var gameStarted = false;
 var gameFinished = false;
 var autoCompleteTime = 400;
 var deckDealTimer = undefined;
-var deckDealTime = 500;
+var deckCardDealTime = 160;
 var deckFaceUpCards = 0;
 var deckMargin = 0.35;
-var deckPadding = 0.3;
+var deckPadding = 0.33;
 var numberOfFoundations = 4;
 var foundationSrc;
 var foundationAreaWidth = 0.55;
@@ -121,10 +121,10 @@ $(function () {
     });
 
     function setTimeScore(change) {
-        timeScore = new Date(new Date().getTime() - timeStart);
-        timeScoreHrs = timeScore.getHours();
-        timeScoreMins = ("0" + timeScore.getMinutes()).slice(-2);
-        timeScoreSecs = ("0" + timeScore.getSeconds()).slice(-2);
+        timeScore = Math.floor((new Date().getTime() - timeStart) / 1000);
+        timeScoreHrs = (Math.floor(timeScore / 60 / 60) % 24);
+        timeScoreMins = ("0" + (Math.floor(timeScore / 60) % 60)).slice(-2);
+        timeScoreSecs = ("0" + (timeScore % 60)).slice(-2);
         if (timeScoreHrs.toString().length < 2) {
             timeScoreHrs = "0" + timeScoreHrs;
         }
@@ -807,7 +807,7 @@ $(function () {
                                 CARD_OBJECTS[cardID].lastPosX = getDeckCardPosX(GAME_DIFFICULTY - 1);
                                 CARD_OBJECTS[cardID].cardImage.css("z-index", GAME_DIFFICULTY + 1);
                                 CARD_OBJECTS[cardID].turnFaceUp();
-                                moveCardToLastPos(cardID, deckDealTime / GAME_DIFFICULTY, function (currentCardID) {
+                                moveCardToLastPos(cardID, deckCardDealTime, function (currentCardID) {
                                     isDeckDealOnLastCard(currentCardID);
                                     CARD_OBJECTS[currentCardID].cardImage.css("z-index", parseInt(CARD_OBJECTS[currentCardID].cardImage.css("z-index")) - 1);
                                 });
@@ -816,8 +816,7 @@ $(function () {
                                     if (prevCardID != undefined) {
                                         if (CARD_OBJECTS[prevCardID].lastPosX == CARD_OBJECTS[DECK.cardIDs[DECK.cardIDs.indexOf(prevCardID) - 1]].lastPosX) {
                                             CARD_OBJECTS[prevCardID].lastPosX = getDeckCardPosX(GAME_DIFFICULTY - 1 - j);
-                                            moveCardToLastPos(prevCardID, deckDealTime / GAME_DIFFICULTY, function (currentCardID) {
-                                                var currentPrevCardID = DECK.cardIDs[DECK.cardIDs.indexOf(currentCardID) + 1];
+                                            moveCardToLastPos(prevCardID, deckCardDealTime, function (currentCardID) {
                                                 isDeckDealOnLastCard(currentCardID);
                                                 CARD_OBJECTS[currentCardID].cardImage.css("z-index", parseInt(CARD_OBJECTS[currentCardID].cardImage.css("z-index")) - 1);
                                             });
@@ -848,7 +847,7 @@ $(function () {
                                 deckDealTimer = undefined;
                             }
                         },
-                        deckDealTime / GAME_DIFFICULTY);
+                        deckCardDealTime);
                     setMovesScore();
                 }
             }
