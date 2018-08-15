@@ -39,8 +39,8 @@ function productReadDownloads(product_name, callBack) {
 function productDownload(product_name) {
     alert(product_name.replace("_", " ") + " will now start downloading.\nPlease read the INSTALL.txt or the installation instructions at the bottom of the page.");
     autoScrollTimer(Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight) - document.documentElement.clientHeight);
-    productUpdateDownloads(product_name);
-    productShowDownloads(product_name);
+    //productUpdateDownloads(product_name);
+    //productShowDownloads(product_name);
 }
 
 function productUpdateDownloads(product_name, downloads) {
