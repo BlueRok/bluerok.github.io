@@ -15,7 +15,11 @@
     <header></header>
     <div class="content">
         <h1>Easy Type</h1>
-        <p><a href="products/Easy_Type/Easy_Type_Installer.jar" download onclick="alert(&quot;Easy Type will now start downloading.\nPlease read INSTALL.txt or the installation instructions at the bottom of the page.&quot;); autoScrollTimer(Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight) - document.documentElement.clientHeight);">Download Easy Type</a></p>
+        <p><a href="products/Easy_Type/Easy_Type_Installer.jar" download onclick="productDownload(&quot;Easy_Type&quot;)">Download Easy Type</a></p>
+        <p name=Easy_Type_downloads></p>
+        <script>
+            productShowDownloads("Easy_Type");
+        </script>
         <p>Easy Type is a simple yet easy to use text-editor! Its simple layout makes typing quick and effortless. There's even support for emojis in some fonts!</p>
         <div class="sliderContainer">
             <div class="bubblesContainer">

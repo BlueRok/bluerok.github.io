@@ -38,7 +38,7 @@ var gameStarted = false;
 var gameFinished = false;
 var autoCompleteTime = 400;
 var deckDealTimer = undefined;
-var deckCardDealTime = 160;
+var deckCardDealTime = 180;
 var deckFaceUpCards = 0;
 var deckMargin = 0.35;
 var deckPadding = 0.33;
@@ -249,12 +249,15 @@ $(function () {
         for (var j = 1; j <= GAME_DIFFICULTY; j++) {
             var prevCardID = DECK.cardIDs[DECK.cardIDs.indexOf(cardID) + j];
             if (prevCardID != undefined) {
+                CARD_OBJECTS[prevCardID].cardImage.css("z-index", parseInt(CARD_OBJECTS[prevCardID].cardImage.css("z-index")) + 1);
                 if (j < GAME_DIFFICULTY) {
                     CARD_OBJECTS[prevCardID].lastPosX = getDeckCardPosX(GAME_DIFFICULTY - 1 - j + 1);
-                    CARD_OBJECTS[prevCardID].cardImage.css("z-index", parseInt(CARD_OBJECTS[prevCardID].cardImage.css("z-index")) + 1);
                     moveCardToLastPos(prevCardID, cardMoveTime);
                 } else {
-                    CARD_OBJECTS[prevCardID].cardImage.css("z-index", 1);
+                    var prevPrevCardID = DECK.cardIDs[DECK.cardIDs.indexOf(prevCardID) + 1];
+                    if (prevPrevCardID != undefined) {
+                        CARD_OBJECTS[prevPrevCardID].cardImage.css("z-index", 1);
+                    }
                 }
             }
         }
@@ -305,7 +308,11 @@ $(function () {
                 x: 0.1,
                 y: 0.1
             })) {
-            CARD_OBJECTS[prevCardID].cardImage.css("z-index", 0);
+            CARD_OBJECTS[prevCardID].cardImage.css("z-index", 1);
+            var prevPrevCardID = DECK.cardIDs[DECK.cardIDs.indexOf(prevCardID) + 1];
+            if (prevPrevCardID != undefined) {
+                CARD_OBJECTS[prevPrevCardID].cardImage.css("z-index", 0);
+            }
         }
     }
 
@@ -805,7 +812,7 @@ $(function () {
                             if (deckFaceUpCards < DECK.cardIDs.length) {
                                 var cardID = DECK.cardIDs[DECK.cardIDs.length - 1 - deckFaceUpCards];
                                 CARD_OBJECTS[cardID].lastPosX = getDeckCardPosX(GAME_DIFFICULTY - 1);
-                                CARD_OBJECTS[cardID].cardImage.css("z-index", GAME_DIFFICULTY + 1);
+                                CARD_OBJECTS[cardID].cardImage.css("z-index", GAME_DIFFICULTY + 2);
                                 CARD_OBJECTS[cardID].turnFaceUp();
                                 moveCardToLastPos(cardID, deckCardDealTime, function (currentCardID) {
                                     isDeckDealOnLastCard(currentCardID);
