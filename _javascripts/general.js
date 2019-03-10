@@ -1,5 +1,5 @@
-var loadPartsDirectory = "loadParts/";
-var imagesDirectory = "images/";
+var loadPartsDir = "/_loadParts/";
+var imagesDir = "/_images/";
 var isTouchScreenDevice;
 var parseBoolean;
 var autoScrollTimer;
@@ -8,11 +8,11 @@ $(function () {
     parseBoolean = function (value) {
         return value == "true"
     }
-    
+
     var header = $("header");
     var nav;
     var navLi;
-    header.load(loadPartsDirectory + "header.html", function () {
+    header.load(loadPartsDir + "header.html", function () {
         nav = header.find("nav");
         navLi = nav.find("li");
         navLi.on("click", function () {
@@ -35,7 +35,7 @@ $(function () {
             $(this).removeClass("hover");
         });
     });
-    $("footer").load(loadPartsDirectory + "footer.html");
+    $("footer").load(loadPartsDir + "footer.html");
 
 
     function shrinkHeader() {

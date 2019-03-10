@@ -24,8 +24,8 @@ var CARD_OBJECTS = {};
 var DECK;
 var cardImageRatio = 3.5 / 2.5;
 var cardImageSize;
-var cardsDirectory = imagesDirectory + "cards/";
-var cardBackImage = cardsDirectory + "back.png";
+var cardsDir = imagesDir + "cards/";
+var cardBackImage = cardsDir + "back.png";
 var cardMaxWidth = 100;
 var cardFlipTime = 250;
 
@@ -36,7 +36,7 @@ class Card {
         this.suitColor = ((suit % 2) == 1) ? "Black" : "Red";
         this.cardID = getCardID(this.rank, this.suit);
         this.cardImage;
-        this.faceUpImage = cardsDirectory + this.cardID + ".png";
+        this.faceUpImage = cardsDir + this.cardID + ".png";
         this.faceUp = false;
         this.lastPosX;
         this.lastPosY;

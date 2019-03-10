@@ -15,7 +15,7 @@ var pointsScore = 0;
 var pointsScoreArea;
 var gameArea;
 var initialClickCount = 0;
-var solitaireDirectory;
+var solitaireDir;
 var resetDeckButtonSrc;
 var resetDeckButton;
 var buttonsArea;
@@ -73,8 +73,8 @@ $(function () {
 
     // Play
     gameArea = gameContainer.find(".gameArea");
-    solitaireDirectory = cardsDirectory + "solitaire/";
-    resetDeckButtonSrc = solitaireDirectory + "resetDeck.png";
+    solitaireDir = cardsDir + "solitaire/";
+    resetDeckButtonSrc = solitaireDir + "resetDeck.png";
     gameArea.append("<img class=\"card\" src=\"" + resetDeckButtonSrc + "\" draggable=false>");
     resetDeckButton = gameArea.find("img[src$=\"" + resetDeckButtonSrc + "\"]");
     resetDeckButton.css("z-index", 0);
@@ -96,7 +96,7 @@ $(function () {
     });
     instructionsButton.on("click", function (event) {
         var xhr_instructions = new XMLHttpRequest();
-        xhr_instructions.open("GET", loadPartsDirectory + "solitaireInstructions.txt", true);
+        xhr_instructions.open("GET", loadPartsDir + "solitaireInstructions.txt", true);
         xhr_instructions.onreadystatechange = function () {
             if (xhr_instructions.readyState == 4 && xhr_instructions.status == 200) {
                 alert(xhr_instructions.responseText);
@@ -377,7 +377,7 @@ $(function () {
     }
 
     // Foundations
-    foundationSrc = solitaireDirectory + "/foundation.png";
+    foundationSrc = solitaireDir + "/foundation.png";
 
     class Foundation {
         constructor() {
