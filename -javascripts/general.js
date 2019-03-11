@@ -1,5 +1,5 @@
-var loadPartsDir = "/_loadParts/";
-var imagesDir = "/_images/";
+var loadPartsDir = "/-loadParts/";
+var imagesDir = "/-images/";
 var isTouchScreenDevice;
 var parseBoolean;
 var autoScrollTimer;
