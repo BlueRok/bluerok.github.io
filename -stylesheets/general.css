@@ -7,12 +7,12 @@
 :root {
     --selectedNavTextColor: rgb(0, 255, 0);
     --buttonBlue: rgb(0, 0, 255);
-    /*--headerColor: rgba(0, 235, 235, 0.75);
+    --headerColor: rgba(0, 235, 235, 0.75);
     --headerTextColor: rgb(255, 165, 0);
-    --footerColor: rgb(0, 235, 235);*/
-    --headerColor: rgba(100, 100, 100, 0.75);
+    --footerColor: rgb(0, 235, 235);
+    /*--headerColor: rgba(100, 100, 100, 0.75);
     --headerTextColor: rgb(150, 255, 255);
-    --footerColor: rgb(220, 220, 220);
+    --footerColor: rgb(220, 220, 220);*/
 }
 
 body {
