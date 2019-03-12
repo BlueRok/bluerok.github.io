@@ -41,7 +41,7 @@ $(function () {
     function shrinkHeader() {
         var scrollDistance = window.pageYOffset;
         var header = document.getElementsByTagName("header")[0];
-        var maxHeaderHeight = 118.5;
+        var maxHeaderHeight = 117.5;
         var h1 = header.getElementsByTagName("h1")[0];
         var maxH1Size = 80;
         var minHeaderHeight = maxHeaderHeight - maxH1Size;
@@ -53,9 +53,9 @@ $(function () {
                 h1.style.opacity = (maxHeaderHeight - scrollDistance - minHeaderHeight) / maxH1Size;
                 h1.style.visibility = "visible";
             } else {
-                header.style.height = (maxHeaderHeight + 56.5) + "px";
-                h1.style.fontSize = (maxHeaderHeight + 56.5 - minHeaderHeight) + "px";
-                h1.style.lineHeight = (maxHeaderHeight + 56.5 - minHeaderHeight) + "px";
+                header.style.height = (maxHeaderHeight + 57.5) + "px";
+                h1.style.fontSize = (maxHeaderHeight + 57.5 - minHeaderHeight) + "px";
+                h1.style.lineHeight = (maxHeaderHeight + 57.5 - minHeaderHeight) + "px";
                 h1.style.opacity = 1;
                 h1.style.visibility = "visible";
             }

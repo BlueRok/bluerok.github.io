@@ -20,7 +20,7 @@ body {
 }
 
 header {
-    height: 118.5px;
+    height: 117.5px;
     background-color: var(--headerColor);
     position: fixed;
     z-index: 100;
@@ -41,7 +41,11 @@ header h1 {
 }
 
 #content {
-    margin-top: 118.5px;
+    margin-top: 117.5px;
+}
+
+nav {
+    font-size: 13px;
 }
 
 nav > ul {
@@ -49,7 +53,7 @@ nav > ul {
 }
 
 nav > ul > li {
-    border-right: 0.5px groove white;
+    /*border-right: 0.5px groove white;*/
 }
 
 nav li {
@@ -59,6 +63,7 @@ nav li {
     background-color: rgba(100, 100, 100, 0.5);
     text-align: center;
     position: relative;
+    border-radius: 10px;
     transition: 0.3s;
 }
 
@@ -120,20 +125,20 @@ h2 {
 
 h1 {
     margin: 20px 3.8%;
-    font-size: 55px;
+    font-size: 50px;
     font-family: Baskerville;
 }
 
 h2 {
     margin: 20px 20%;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 p {
     margin: 30px 3.8%;
     font-size: 20px;
     font-family: Arial;
-    line-height: 35px;
+    line-height: 30px;
     text-align: center;
 }
 
@@ -150,7 +155,7 @@ a:hover {
 button {
     padding: 10px 0px;
     width: 20%;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     border-radius: 25px;
     outline: none;
@@ -176,7 +181,7 @@ footer {
 }
 
 #contactUsFooterLink {
-    font-size: 45px;
+    font-size: 40px;
     color: blue;
     font-weight: bold;
     display: block;
