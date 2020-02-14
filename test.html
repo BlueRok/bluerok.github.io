@@ -4,17 +4,17 @@
 <head>
     <title>Generator</title>
     <script>
-    var facts = {"Sun is big", "Moon is white", "Clocks are round"};
+    var facts = ["Sun is big", "Moon is white", "Clocks are round"];
     function main() {
       var elem = document.getElementById("text");
-      elem.innerHTML = facts[Math.floor(Math.random()*facts.length)];;
+      elem.innerHTML = facts[Math.floor(Math.random()*facts.length)];
     }
     </script>
 </head>
 
 <body>
     <header></header>
-    <span id="text"></span>
+    <span id="text" style=""></span>
     <script>main();</script>
 </body>
 
