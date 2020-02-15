@@ -1,5 +1,6 @@
 <!Doctype html>
 <html>
+
 <head>
     <title>Facts</title>
     <script>
@@ -11,11 +12,7 @@
         function getFact(difficulty = "Easy") {
             document.getElementById("text").innerHTML = facts[difficulty][Math.floor(Math.random() * facts[difficulty].length)];
         }
-        
-        function main() {
-            elem = document.getElementById("fact");
-            getFact();
-        }
+
     </script>
     <style>
         * {
@@ -23,14 +20,15 @@
             top: 0px;
             margin: 0px;
             outline: none;
-            -webkit-touch-callout: none; 
+            -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            font-family: Helvetica; 
         }
-        
+
         ::selection {
             color: none;
             background: none;
@@ -53,13 +51,15 @@
         button:active {
             background-color: skyblue;
         }
+
     </style>
 </head>
 
 <body style="text-align: center;">
+    <span style="position: fixed; top: 1%;  width: 100%; font-size: 20px;">Please write down this fact before you generate a new one</span>
     <div id="fact" style="position: fixed; left: 50%; top: 45%; width: 90%; height: 80%; transform: translate(-50%, -50%); background-color: #51180C; border-radius: 120px; text-align: center;">
-        <div style="position: absolute; width: 92.5%; height: 92.5%; left: 50%; top: 50%; border: 8px solid white; border-radius: 120px; transform: translate(-50%, -50%);"></div>
-        <span id="text" style="position: absolute; left: 50%; top: 50%; text-align: center; color: white; font-family: Helvetica; font-size: 40px; width: 90%; transform: translate(-50%, -50%);"></span>
+        <div style="position: fixed; width: 92.5%; height: 92.5%; left: 50%; top: 50%; border: 8px solid white; border-radius: 120px; transform: translate(-50%, -50%);"></div>
+        <span id="text" style="position: fixed; left: 50%; top: 50%; text-align: center; color: white; font-size: 40px; width: 90%; transform: translate(-50%, -50%);"></span>
     </div>
     <div style="position: fixed; top: 92.5%; width: 100%; height: 7%; transform: translate(0, -50%);">
         <button onclick="getFact('Easy');">Easy</button>
@@ -67,5 +67,8 @@
     </div>
     <script>
         getFact();
+
     </script>
-</body></html>
+</body>
+
+</html>
