@@ -3,11 +3,9 @@
 <head>
     <title>Facts</title>
     <script>
-        var easyFacts = ["Sun is big", "Moon is white", "Clocks are round"];
-        var hardFacts = ["Speed of light is 3 x 10^8 meters per second", "Fractals are infinitely recursive shapes", "The sky is blue due to the shorter wavelength of blue light"];
         var facts = {
-            "Easy": easyFacts,
-            "Hard": hardFacts
+            "Easy": ["Sun is big", "Moon is white", "Clocks are round"],
+            "Hard": ["Speed of light is 3 x 10^8 meters per second", "Fractals are infinitely recursive shapes", "The sky is blue due to the shorter wavelength of blue light"]
         };
 
         function getFact(difficulty = "Easy") {
@@ -32,6 +30,12 @@
             color: black;
             font-size: 25px;
             border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        button:active {
+            background-color: skyblue;
         }
     </style>
 </head>
