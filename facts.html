@@ -1,0 +1,50 @@
+<!Doctype html>
+<html>
+<head>
+    <title>Facts</title>
+    <script>
+        var easyFacts = ["Sun is big", "Moon is white", "Clocks are round"];
+        var hardFacts = ["Speed of light is 3 x 10^8 meters per second", "Fractals are infinitely recursive shapes", "The sky is blue due to the shorter wavelength of blue light"];
+        var facts = {
+            "Easy": easyFacts,
+            "Hard": hardFacts
+        };
+
+        function getFact(difficulty = "Easy") {
+            document.getElementById("text").innerHTML = facts[difficulty][Math.floor(Math.random() * facts[difficulty].length)];
+        }
+    </script>
+    <style>
+        * {
+            left: 0px;
+            top: 0px;
+            margin: 0px;
+        }
+
+        button {
+            position: relative;
+            float: left;
+            width: 40%;
+            margin-left: 5%;
+            margin-right: 5%;
+            height: 100%;
+            background-color: lightblue;
+            color: black;
+            font-size: 25px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body bgcolor="#9c5528" style="text-align: center;">
+    <div style="position: fixed; left: 50%; top: 45%; width: 90%; height: 80%; transform: translate(-50%, -50%); border: 3px solid white; border-radius: 100px; text-align: center; vertical-align: middle;">
+        <span id="text" style="position: absolute; left: 50%; top: 50%; text-align: center; color: white; font-family: Helvetica; font-size: 30px; width: 90%; transform: translate(-50%, -50%);"></span>
+    </div>
+    <div style="position: fixed; top: 92.5%; width: 100%; height: 7%; transform: translate(0, -50%);">
+        <button onclick="getFact('Easy');">Easy</button>
+        <button onclick="getFact('Hard');">Hard</button>
+    </div>
+    <script>
+        getFact();
+    </script>
+</body></html>
