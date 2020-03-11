@@ -13,6 +13,7 @@ def kill():
 
 def view():
 	numConnLabel['text'] = "View Clicked"
+	viewConnWindow = tk.TopLevel(root)
 
 root = tk.Tk()
 root.title("Server")
