@@ -32,14 +32,14 @@ killButton = tk.Button(soFrame, text="Kill Server", font=BUTTON_FONT, command=ch
 killButton.grid(row=0, column=1, padx=soButtonPadX[::-1], pady=soButtonPadY)
 
 connFrame = tk.LabelFrame(root, text="Connections", font=FRAME_FONT, bd=1, relief=tk.GROOVE)
-connFrame.grid(row=1, column=0)
+connFrame.grid(row=1, column=0, sticky="nesw")
 connFrame.grid_columnconfigure(0, weight=1)
 connFrame.grid_columnconfigure(1, weight=1)
 
 numConnLabel = tk.Label(connFrame, text="Number of connections: 0", font=LABEL_FONT)
 numConnLabel.grid(row=0, column=0, sticky="e")
 
-viewConnButton = tk.Label(connFrame, text="View", font=BUTTON_FONT)
+viewConnButton = tk.Button(connFrame, text="View", font=BUTTON_FONT, command=change)
 viewConnButton.grid(row=0, column=1, sticky="w")
 
 tk.mainloop()
