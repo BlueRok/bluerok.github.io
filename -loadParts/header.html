@@ -1,29 +1,35 @@
 <h1>
     BlueRok</h1>
+<input type="checkbox" id="navToggle">
 <nav>
     <ul>
-        <li data-clicked=false><a href="/index.html">Home</a></li>
-        <li class="dropdown-menu" data-clicked=false><a>Products</a>
-            <ul class="sub1">
-                <li data-clicked=false><a>Games</a>
-                    <ul class="sub2">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="javascript:void(0)">Products</a>
+            <ul>
+                <li><a href="javascript:void(0)">Games</a>
+                    <ul>
                         <li><a href="/products/Games/ballJump.html">Ball Jump</a></li>
                         <li><a href="/products/Games/stickmenBattles.html">Stickmen Battles</a></li>
-                        <li data-clicked=false><a>Cards</a>
-                            <ul class="sub2">
+                        <li><a href="javascript:void(0)">Cards</a>
+                            <ul>
                                 <li><a href="/products/Games/Cards/solitaire.html">Solitaire</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li data-clicked=false><a>Other</a>
-                    <ul class="sub2">
+                <li><a href="javascript:void(0)">Other</a>
+                    <ul>
                         <li><a href="/products/Other/easyType.html">Easy Type</a></li>
                     </ul>
                 </li>
             </ul>
         </li>
-        <li><a href="/aboutUs.html">About Us</a></li>
-        <li><a href="/contactUs.html">Contact Us</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
     </ul>
 </nav>
+<label for="navToggle" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+</label>

@@ -1,76 +1,80 @@
-var loadPartsDir = "/-loadParts/";
-var imagesDir = "/-images/";
-var isTouchScreenDevice;
-var parseBoolean;
-var autoScrollTimer;
+var loadPartsDir = "/-loadParts/"
+var imagesDir = "/-images/"
+var isTouchScreenDevice
+var parseBoolean
+var autoScrollTimer
 $(function () {
-    isTouchScreenDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window);
+    isTouchScreenDevice = ('ontouchstart' in window) || ('onmsgesturechange' in window)
     parseBoolean = function (value) {
         return value == "true"
     }
 
-    var header = $("header");
-    var nav;
-    var navLi;
-    header.load(loadPartsDir + "header.html", function () {
-        nav = header.find("nav");
-        navLi = nav.find("li");
-        navLi.on("click", function () {
-            if ($(this).attr("data-clicked") != undefined) {
-                $(this).attr("data-clicked", !($(this).attr("data-clicked") == "true"));
+    var header = $("header")
+    header.load(loadPartsDir + "header.html")
+    header.on("focus", "a", function () {
+        if (header.children("#hamburger").is(":visible")) {
+            $(this).trigger("blur")
+        }
+    })
+    header.on("click", "a", function () {
+        if (header.children("#hamburger").is(":visible")) {
+            function propagateHeightChange(elem, height) {
+                if (elem.is("ul")) {
+                    var heightStr = elem.css("height")
+                    elem.css("height", (parseInt(heightStr.substr(0, heightStr.length - 2)) + height) + "px")
+                    propagateHeightChange(elem.parent().parent(), height)
+                }
             }
-        });
-
-        navLi.hover(function () {
-            $(this).addClass("hover");
-        }, function () {
-            if (($(this).attr("data-clicked") == undefined) || !($(this).attr("data-clicked") == "true")) {
-                $(this).removeClass("hover");
+            if ($(this).parent().hasClass("active")) {
+                var ul = $(this).parent().children("ul")
+                var heightStr = ul.css("height")
+                propagateHeightChange(ul, -parseInt(heightStr.substr(0, heightStr.length - 2)))
+                $(this).parent().find("li").removeClass("active")
+                $(this).parent().find("ul").css("height", "0px")
+            } else {
+                var ul = $(this).parent().children("ul")
+                var lis = ul.children()
+                var heightStr = lis.find("a").css("height")
+                propagateHeightChange(ul, lis.length * parseInt(heightStr.substr(0, heightStr.length - 2)))
             }
-        });
+            $(this).parent().toggleClass("active")
+            $(this).trigger("blur")
+        }
+    })
+    header.on("change", "#navToggle", function () {
+        if ($(this).is(":checked")) {
+            var ul = header.find("nav").children("ul")
+            var lis = ul.children()
+            var heightStr = $(lis[0]).css("height")
+            ul.css("height", lis.length * parseInt(heightStr.substr(0, heightStr.length - 2)) + "px")
 
-        navLi.find("a").hover(function () {
-            $(this).addClass("hover");
-        }, function () {
-            $(this).removeClass("hover");
-        });
-    });
+        } else {
+            header.find("li").removeClass("active")
+            header.find("ul").css("height", "0px")
+        }
+    })
+
     $("footer").load(loadPartsDir + "footer.html");
 
-
-    function shrinkHeader() {
-        var scrollDistance = window.pageYOffset;
-        var header = document.getElementsByTagName("header")[0];
-        var maxHeaderHeight = 117.5;
-        var h1 = header.getElementsByTagName("h1")[0];
-        var maxH1Size = 80;
-        var minHeaderHeight = maxHeaderHeight - maxH1Size;
-        if (scrollDistance < maxH1Size) {
-            if ((maxHeaderHeight - scrollDistance) < 175) {
-                header.style.height = (maxHeaderHeight - scrollDistance) + "px";
-                h1.style.fontSize = (maxHeaderHeight - scrollDistance - minHeaderHeight) + "px";
-                h1.style.lineHeight = (maxHeaderHeight - scrollDistance - minHeaderHeight) + "px";
-                h1.style.opacity = (maxHeaderHeight - scrollDistance - minHeaderHeight) / maxH1Size;
-                h1.style.visibility = "visible";
-            } else {
-                header.style.height = (maxHeaderHeight + 57.5) + "px";
-                h1.style.fontSize = (maxHeaderHeight + 57.5 - minHeaderHeight) + "px";
-                h1.style.lineHeight = (maxHeaderHeight + 57.5 - minHeaderHeight) + "px";
-                h1.style.opacity = 1;
-                h1.style.visibility = "visible";
+    var hamburgerBeenVisible = false
+    $(window).resize(function () {
+        if (!(header.children("#hamburger").is(":visible"))) {
+            header.find("li").removeClass("active")
+            header.find("ul").css("height", "")
+            var navToggle = header.children("#navToggle")
+            if (hamburgerBeenVisible == true) {
+                var uls = header.find("nav > ul ul")
+                var ogDisplay = $(uls[0]).css("display")
+                uls.css("display", "none").delay(1).queue(function () {
+                    $(this).css("display", ogDisplay)
+                })
             }
+            navToggle.prop("checked", false)
+            hamburgerBeenVisible = false
         } else {
-            header.style.height = minHeaderHeight + "px";
-            h1.style.fontSize = "0px";
-            h1.style.lineHeight = "0px";
-            h1.style.opacity = "0";
-            h1.style.visibility = "hidden";
+            hamburgerBeenVisible = true
         }
-    }
-    window.onscroll = function () {
-        shrinkHeader()
-    };
-
+    })
     var scroller;
 
     function autoScroll(startingY, targetY) {

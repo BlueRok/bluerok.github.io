@@ -60,15 +60,15 @@ $(function () {
     gameContainer = $("#solitaireGame");
 
     // Score
-    scoreArea = gameContainer.find(".gameScoreArea");
-    scoreArea.append("<div class=\"gameScoreTime\"></div>");
-    scoreArea.append("<div class=\"gameScoreDifficulty\"></div>");
-    scoreArea.append("<div class=\"gameScoreMoves\"></div>");
-    scoreArea.append("<div class=\"gameScorePoints\"></div>");
-    timeScoreArea = scoreArea.find(".gameScoreTime");
-    difficultyScoreArea = scoreArea.find(".gameScoreDifficulty");
-    movesScoreArea = scoreArea.find(".gameScoreMoves");
-    pointsScoreArea = scoreArea.find(".gameScorePoints");
+    scoreArea = gameContainer.find(".gameHUDArea");
+    scoreArea.append("<div class=\"solitaireGameScoreTime\"></div>");
+    scoreArea.append("<div class=\"solitaireGameScoreDifficulty\"></div>");
+    scoreArea.append("<div class=\"solitaireGameScoreMoves\"></div>");
+    scoreArea.append("<div class=\"solitaireGameScorePoints\"></div>");
+    timeScoreArea = scoreArea.find(".solitaireGameScoreTime");
+    difficultyScoreArea = scoreArea.find(".solitaireGameScoreDifficulty");
+    movesScoreArea = scoreArea.find(".solitaireGameScoreMoves");
+    pointsScoreArea = scoreArea.find(".solitaireGameScorePoints");
     scoreArea.children().css("width", (100 / scoreArea.children().length) + "%");
 
     // Play
