@@ -1,70 +1,103 @@
-var validForename, validSurname, validEmail, confirmedEmail, validMessage;  
+$(function () {
+    var validForename, validSurname, validEmail, confirmedEmail, validMessage;
 
-function checkForm() {
-    var sendEmail = document.getElementsByName("sendEmail")[0];
-    if (validForename && validSurname && validEmail && confirmedEmail && validMessage) {
-        sendEmail.disabled = false;
-    } else {
-        sendEmail.disabled = true;
-    }
-}
+    var forename = $("#forename")
+    var surname = $("#surname")
+    var emailAddress = $("#emailAddress")
+    var confirmEmailAddress = $("#confirmEmailAddress")
+    var message = $("#message")
+    var sendEmail = $("#sendEmail")
 
-function validateForename() {
-    var forename = document.getElementsByName("forename")[0], Lforename = document.getElementsByName("Lforename")[0];
-    if (forename.value != "") {
-        Lforename.style.color = "green";
-        validForename = true;
-    } else {
-        Lforename.style.color = "red";
-        validForename = false;
-    }
-    checkForm();
-}
+    forename.on("focus", function () {
+        forename.parent().removeClass("valid")
+        forename.parent().removeClass("invalid")
+    })
+    forename.on("focusout", function () {
+        if (forename.val() != "") {
+            forename.parent().addClass("valid")
+            forename.parent().removeClass("invalid")
+            validForename = true;
+        } else {
+            forename.parent().addClass("invalid")
+            forename.parent().removeClass("valid")
+            validForename = false;
+        }
+        checkForm();
+    })
 
-function validateSurname() {
-    var surname = document.getElementsByName("surname")[0], Lsurname = document.getElementsByName("Lsurname")[0];
-    if (surname.value != "") {
-        Lsurname.style.color = "green";
-        validSurname = true;
-    } else {
-        Lsurname.style.color = "red";
-        validSurname = false;
-    }
-    checkForm();
-}
+    surname.on("focus", function () {
+        surname.parent().removeClass("valid")
+        surname.parent().removeClass("invalid")
+    })
+    surname.on("focusout", function () {
+        if (surname.val() != "") {
+            surname.parent().addClass("valid")
+            surname.parent().removeClass("invalid")
+            validSurname = true;
+        } else {
+            surname.parent().addClass("invalid")
+            surname.parent().removeClass("valid")
+            validSurname = false;
+        }
+        checkForm();
+    })
 
-function validateEmail() {
-    var emailAddress = document.getElementsByName("emailAddress")[0], LemailAddress = document.getElementsByName("LemailAddress")[0];
-    if (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(emailAddress.value)) {
-        LemailAddress.style.color = "green";
-        validEmail = true;
-    } else {
-        LemailAddress.style.color = "red";
-        validEmail = false;
-    }
-    checkForm();
-}
+    emailAddress.on("focus", function () {
+        emailAddress.parent().removeClass("valid")
+        emailAddress.parent().removeClass("invalid")
+    })
+    emailAddress.on("focusout", function () {
+        if (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(emailAddress.val())) {
+            emailAddress.parent().addClass("valid")
+            emailAddress.parent().removeClass("invalid")
+            validEmail = true;
+        } else {
+            emailAddress.parent().addClass("invalid")
+            emailAddress.parent().removeClass("valid")
+            validEmail = false;
+        }
+        checkForm();
+    })
 
-function confirmEmail() {
-    var emailAddress = document.getElementsByName("emailAddress")[0], confirmEmailAddress = document.getElementsByName("confirmEmailAddress")[0], LconfirmEmailAddress = document.getElementsByName("LconfirmEmailAddress")[0];
-    if (confirmEmailAddress.value == emailAddress.value) {
-        LconfirmEmailAddress.style.color = "green";
-        confirmedEmail = true;
-    } else {
-        LconfirmEmailAddress.style.color = "red";
-        confirmedEmail = false;
-    }
-    checkForm();
-}
+    confirmEmailAddress.on("focus", function () {
+        confirmEmailAddress.parent().removeClass("valid")
+        confirmEmailAddress.parent().removeClass("invalid")
+    })
+    confirmEmailAddress.on("focusout", function () {
+        if (confirmEmailAddress.val() === emailAddress.val()) {
+            confirmEmailAddress.parent().addClass("valid")
+            confirmEmailAddress.parent().removeClass("invalid")
+            confirmedEmail = true;
+        } else {
+            confirmEmailAddress.parent().addClass("invalid")
+            confirmEmailAddress.parent().removeClass("valid")
+            confirmedEmail = false;
+        }
+        checkForm();
+    })
 
-function validateMessage() {
-    var message = document.getElementsByName("message")[0], Lmessage = document.getElementsByName("Lmessage")[0];
-    if (message.value != "") {
-        Lmessage.style.color = "green";
-        validMessage = true;
-    } else {
-        Lmessage.style.color = "red";
-        validMessage = false;
+    message.on("focus", function () {
+        message.parent().removeClass("valid")
+        message.parent().removeClass("invalid")
+    })
+    message.on("focusout", function () {
+        if (message.val() != "") {
+            message.parent().addClass("valid")
+            message.parent().removeClass("invalid")
+            validMessage = true;
+        } else {
+            message.parent().addClass("invalid")
+            message.parent().removeClass("valid")
+            validMessage = false;
+        }
+        checkForm();
+    })
+
+    function checkForm() {
+        if (validForename && validSurname && validEmail && confirmedEmail && validMessage) {
+            sendEmail.attr("disabled", false);
+        } else {
+            sendEmail.attr("disabled", true);
+        }
     }
-    checkForm();
-}
+});

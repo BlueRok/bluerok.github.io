@@ -64,10 +64,9 @@ $(function () {
             var navToggle = header.children("#navToggle")
             if (hamburgerBeenVisible == true) {
                 var uls = header.find("nav > ul ul")
-                var ogDisplay = $(uls[0]).css("display")
-                uls.css("display", "none").delay(1).queue(function () {
-                    $(this).css("display", ogDisplay)
-                })
+                uls.css("display", "none")
+                uls[0].offsetHeight;
+                uls.css("display", "")
             }
             navToggle.prop("checked", false)
             hamburgerBeenVisible = false
@@ -75,27 +74,10 @@ $(function () {
             hamburgerBeenVisible = true
         }
     })
-    var scroller;
-
-    function autoScroll(startingY, targetY) {
-        var duration = 300;
-        var absoluteSpeed = Math.abs(targetY - startingY) / duration;
-        var scrollSpeed = 0;
-        if (startingY > targetY) {
-            scrollSpeed = -absoluteSpeed;
-        } else if (startingY < targetY) {
-            scrollSpeed = absoluteSpeed;
-        }
-        window.scroll(window.pageXOffset, window.pageYOffset + scrollSpeed);
-        if (((startingY >= targetY) && (window.pageYOffset <= targetY)) || ((startingY <= targetY) && (window.pageYOffset >= targetY))) {
-            clearInterval(scroller);
-        }
-    }
-
-    autoScrollTimer = function (targetY) {
-        var startingY = window.pageYOffset;
-        scroller = setInterval(function () {
-            autoScroll(startingY, targetY)
-        }, 1);
-    }
 });
+
+function customAlert(title, text) {
+    document.getElementsByClassName('alert__box__header__title')[0].innerHTML = title
+    document.getElementsByClassName('alert__box__text')[0].innerHTML = text
+    document.getElementsByClassName('alert')[0].classList.add('alert--show')
+}

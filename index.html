@@ -3,64 +3,54 @@
 
 <head>
     <title>BlueRok</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/-stylesheets/general.css">
-    <link rel="stylesheet" type="text/css" href="/-stylesheets/slideShow.css">
+    <link rel="stylesheet" type="text/css" href="/-stylesheets/slideshow.css">
     <script type="text/javascript" src="/-javascripts/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="/-javascripts/general.js"></script>
-    <script type="text/javascript" src="/-javascripts/slideShow.js"></script>
+    <script type="text/javascript" src="/-javascripts/slideshow.js"></script>
 </head>
 
 <body>
     <header></header>
-    <div id="content">
-        <br>
-        <div class="sliderContainer">
-            <div class="bubblesContainer">
-                <div class="slideTimer"></div>
+    <main>
+        <div class="slideshow slideshow--side">
+            <div class="slideshow__timer"></div>
+            <div class="slideshow__bubblesContainer"></div>
+            <img class="slideshow__arrowLeft" src="/-images/general/sliderArrowLeft.png" />
+            <img class="slideshow__arrowRight" src="/-images/general/sliderArrowRight.png" />
+            <div class="slideshow__slidesContainer">
+                <div class="slideshow__slidesContainer__slide">
+                    <div class="slideshow__slidesContainer__slide__image">
+                        <a href="/products/Games/ballJump.html"><img src="/-images/slides/ballJump_slide.png" /></a>
+                    </div>
+                    <div class="slideshow__slidesContainer__slide__info">
+                        <span class="slideshow__slidesContainer__slide__info__title">Ball Jump</span>
+                        <span class="slideshow__slidesContainer__slide__info__tagline">Fast. Addictive. Amazing.</span>
+                    </div>
+                </div>
+                <div class="slideshow__slidesContainer__slide">
+                    <div class="slideshow__slidesContainer__slide__image">
+                        <a href="/products/Games/stickmenBattles.html"><img src="/-images/slides/stickmenBattles_slide.png" /></a>
+                    </div>
+                    <div class="slideshow__slidesContainer__slide__info">
+                        <span class="slideshow__slidesContainer__slide__info__title">Stickmen Battles</span>
+                        <span class="slideshow__slidesContainer__slide__info__tagline">Fight. Defeat. Win.</span>
+                    </div>
+                </div>
+                <div class="slideshow__slidesContainer__slide">
+                    <div class="slideshow__slidesContainer__slide__image">
+                        <a href="/products/Other/easyType.html"><img src="/-images/slides/easyType_slide.png" /></a>
+                    </div>
+                    <div class="slideshow__slidesContainer__slide__info">
+                        <span class="slideshow__slidesContainer__slide__info__title">Easy Type</span>
+                        <span class="slideshow__slidesContainer__slide__info__tagline">Quick. Easy. Simple.</span>
+                    </div>
+                </div>
             </div>
-            <img class="sliderArrowLeft" src="/-images/general/sliderArrowLeft.png" />
-            <img class="sliderArrowRight" src="/-images/general/sliderArrowRight.png" />
-            <ul class="slidesContainer">
-                <li class="slide">
-                    <div class="side">
-                        <div class="slideImage">
-                            <a href="/products/Games/ballJump.html"><img src="/-images/slides/ballJump_slide.png" /></a>
-                        </div>
-                        <div class="slideInfo">
-                            <span class="slideInfoTitle">Ball Jump</span>
-                            <span class="slideInfoTagline">Fast. Addictive. Amazing.</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="slide">
-                    <div class="side">
-                        <div class="slideImage">
-                            <a href="/products/Games/stickmenBattles.html"><img src="/-images/slides/stickmenBattles_slide.png" /></a>
-                        </div>
-                        <div class="slideInfo">
-                            <span class="slideInfoTitle">Stickmen Battles</span>
-                            <span class="slideInfoTagline">Fight. Defeat. Win.</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="slide">
-                    <div class="side">
-                        <div class="slideImage">
-                            <a href="/products/Other/easyType.html"><img src="/-images/slides/easyType_slide.png" /></a>
-                        </div>
-                        <div class="slideInfo">
-                            <span class="slideInfoTitle">Easy Type</span>
-                            <span class="slideInfoTagline">Quick. Easy. Simple.</span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </div>
         <h1>Home</h1>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-        <footer></footer>
-    </div>
-</body>
-
-</html>
+        <button onclick="document.getElementById('alert').classList.add('show')">Show alert</button>
+    </main>
+    <footer></footer>
+</body></html>

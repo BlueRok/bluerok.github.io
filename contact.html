@@ -3,7 +3,7 @@
 
 <head>
     <title>BlueRok</title>
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/-stylesheets/general.css">
     <link rel="stylesheet" type="text/css" href="/-stylesheets/contact.css">
     <script type="text/javascript" src="/-javascripts/jquery-3.1.0.min.js"></script>
@@ -13,37 +13,34 @@
 
 <body>
     <header></header>
-    <div id="content">
+    <main>
         <h1>Contact</h1>
-        <form>
-            <fieldset>
-                <p>
-                    <label style="font-weight: bold; color: red;" name="Lforename">Forename: </label>
-                    <input type="text" required name="forename" onkeyup="validateForename()" placeholder="Enter your forename">
-                </p>
-                <p>
-                    <label style="font-weight: bold; color: red;" name="Lsurname">Surname: </label>
-                    <input type="text" required name="surname" onkeyup="validateSurname()" placeholder="Enter your surname">
-                </p>
-                <p>
-                    <label style="font-weight: bold; color: red;" name="LemailAddress">Email Address: </label>
-                    <input type="email" required name="emailAddress" onkeyup="validateEmail(), confirmEmail()" placeholder="Enter your email address">
-                </p>
-                <p>
-                    <label style="font-weight: bold; color: green;" name="LconfirmEmailAddress">Confirm Email Address: </label>
-                    <input type="email" required name="confirmEmailAddress" onkeyup="confirmEmail()" placeholder="Confirm your email address">
-                </p>
-                <p>
-                    <label style="font-weight: bold; color: red;" name="Lmessage">Message: </label><br>
-                    <textarea rows="10" name="message" onkeyup="validateMessage()" placeholder="Enter your message"></textarea>
-                </p>
-                <p><em>Required fields are marked <strong>bold</strong></em></p>
-                <button type="submit" name="sendEmail" disabled>Submit</button>
-                <button type="reset">Reset</button>
-            </fieldset>
+        <form class="form">
+            <div class="form__inputContainer">
+                <input type="text" required id="forename" name="forename" class="form__inputContainer__input">
+                <label name="Lforename"><span class="form__inputContainer__text">Forename</span></label>
+            </div>
+            <div class="form__inputContainer">
+                <input type="text" required id="surname" name="surname" class="form__inputContainer__input">
+                <label name="Lsurname"><span class="form__inputContainer__text">Surname</span></label>
+            </div>
+            <div class="form__inputContainer">
+                <input type="text" required id="emailAddress" name="emailAddress" class="form__inputContainer__input">
+                <label name="LemailAddress"><span class="form__inputContainer__text">Email Address</span></label>
+            </div>
+            <div class="form__inputContainer">
+                <input type="text" required id="confirmEmailAddress" name="confirmEmailAddress" class="form__inputContainer__input">
+                <label name="LconfirmEmailAddress"><span class="form__inputContainer__text">Confirm Email Address</span></label>
+            </div>
+            <div class="form__inputContainer form__inputContainer--textarea">
+                <textarea required rows="10" id="message" name="message" class="form__inputContainer__input"></textarea>
+                <label name="Lmessage"><span class="form__inputContainer__text">Message</span></label>
+            </div>
+            <div class="form__buttonContainer">
+                <button type="button" id="sendEmail" name="sendEmail" onclick="customAlert('Sorry...', 'Unfortunately the contact us form is not working right now...<br><br>We are working to fix this. Sorry for the inconvenience.')">Submit</button>
+                <button type="reset">Reset</button></div>
         </form>
-        <footer></footer>
-    </div>
-</body>
-
-</html>
+        <script></script>
+    </main>
+    <footer></footer>
+</body></html>

@@ -24,6 +24,7 @@ var instructionsButton;
 var hardButton;
 var mediumButton;
 var easyButton;
+var buttonTransition;
 var windowScrollLeft;
 var windowScrollTop;
 var GAME_TYPES = {
@@ -61,15 +62,14 @@ $(function () {
 
     // Score
     scoreArea = gameContainer.find(".gameHUDArea");
-    scoreArea.append("<div class=\"solitaireGameScoreTime\"></div>");
-    scoreArea.append("<div class=\"solitaireGameScoreDifficulty\"></div>");
-    scoreArea.append("<div class=\"solitaireGameScoreMoves\"></div>");
-    scoreArea.append("<div class=\"solitaireGameScorePoints\"></div>");
+    scoreArea.append("<span class=\"solitaireGameScoreTime\"></span>");
+    scoreArea.append("<span class=\"solitaireGameScoreDifficulty\"></span>");
+    scoreArea.append("<span class=\"solitaireGameScoreMoves\"></span>");
+    scoreArea.append("<span class=\"solitaireGameScorePoints\"></span>");
     timeScoreArea = scoreArea.find(".solitaireGameScoreTime");
     difficultyScoreArea = scoreArea.find(".solitaireGameScoreDifficulty");
     movesScoreArea = scoreArea.find(".solitaireGameScoreMoves");
     pointsScoreArea = scoreArea.find(".solitaireGameScorePoints");
-    scoreArea.children().css("width", (100 / scoreArea.children().length) + "%");
 
     // Play
     gameArea = gameContainer.find(".gameArea");
@@ -81,16 +81,19 @@ $(function () {
 
     // Buttons
     buttonsArea = gameContainer.find(".gameButtonsArea");
-    buttonsArea.append("<button class=\"gameButtonsPlay\">Play</button>");
-    buttonsArea.append("<button class=\"gameButtonsInstructions\">Instructions</button>");
-    buttonsArea.append("<button class=\"gameButtonsHard\" hidden>Hard</button>");
-    buttonsArea.append("<button class=\"gameButtonsMedium\" hidden>Medium</button>");
-    buttonsArea.append("<button class=\"gameButtonsEasy\" hidden>Easy</button>");
+    buttonsArea.append("<button class=\"gameButtonsPlay gameButtonsVisible\">Play</button>");
+    buttonsArea.append("<button class=\"gameButtonsInstructions gameButtonsVisible\">Instructions</button>");
+    buttonsArea.append("<button class=\"gameButtonsHard\">Hard</button>");
+    buttonsArea.append("<button class=\"gameButtonsMedium\">Medium</button>");
+    buttonsArea.append("<button class=\"gameButtonsEasy\">Easy</button>");
     playButton = buttonsArea.find(".gameButtonsPlay");
     instructionsButton = buttonsArea.find(".gameButtonsInstructions");
     hardButton = buttonsArea.find(".gameButtonsHard");
     mediumButton = buttonsArea.find(".gameButtonsMedium");
     easyButton = buttonsArea.find(".gameButtonsEasy");
+    hardButton.remove()
+    mediumButton.remove()
+    easyButton.remove()
     playButton.on("click", function (event) {
         playButtonClicked();
     });
@@ -99,26 +102,30 @@ $(function () {
         xhr_instructions.open("GET", loadPartsDir + "solitaireInstructions.txt", true);
         xhr_instructions.onreadystatechange = function () {
             if (xhr_instructions.readyState == 4 && xhr_instructions.status == 200) {
-                alert(xhr_instructions.responseText);
+                customAlert("Instructions", xhr_instructions.responseText);
             }
         };
         xhr_instructions.send(null);
     });
     hardButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Hard;
-        hideDifficultyButtons(250);
+        hideDifficultyButtons();
         startGame();
     });
     mediumButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Medium;
-        hideDifficultyButtons(500);
+        hideDifficultyButtons();
         startGame();
     });
     easyButton.on("click", function (event) {
         GAME_DIFFICULTY = GAME_TYPES.Easy;
-        hideDifficultyButtons(1000);
+        hideDifficultyButtons();
         startGame();
     });
+
+
+    buttonTransition = playButton.css("transition-duration")
+    buttonTransition = parseFloat(buttonTransition.substr(0, buttonTransition.length - 1)) * 1000
 
     function setTimeScore(change) {
         timeScore = Math.floor((new Date().getTime() - timeStart) / 1000);
@@ -158,7 +165,7 @@ $(function () {
                 playButtonClicked();
                 break;
             case 2:
-                hideDifficultyButtons(0);
+                hideDifficultyButtons();
                 GAME_DIFFICULTY = defaultDifficulty;
                 startGame();
                 break;
@@ -168,23 +175,31 @@ $(function () {
     }
 
     function playButtonClicked() {
-        playButton.slideUp(0);
-        instructionsButton.slideUp(0);
-        showDifficultyButtons(0);
+        initialClickCount = 1
+        playButton.removeClass("gameButtonsVisible")
+        instructionsButton.removeClass("gameButtonsVisible")
+        setTimeout(function () {
+            playButton.remove();
+            instructionsButton.remove();
+            showDifficultyButtons();
+        }, buttonTransition)
     }
 
-    function showDifficultyButtons(time) {
-        hardButton.slideDown(time);
-        mediumButton.slideDown(time);
-        easyButton.slideDown(time);
+    function showDifficultyButtons() {
+        hardButton.appendTo(buttonsArea);
+        mediumButton.appendTo(buttonsArea);
+        easyButton.appendTo(buttonsArea);
+        hardButton[0].offsetHeight
+        hardButton.addClass("gameButtonsVisible")
+        mediumButton.addClass("gameButtonsVisible")
+        easyButton.addClass("gameButtonsVisible")
     }
 
-    function hideDifficultyButtons(time) {
-        hardButton.slideUp(time, function () {
-            calculateSizes();
-        });
-        mediumButton.slideUp(time);
-        easyButton.slideUp(time);
+    function hideDifficultyButtons() {
+        hardButton.remove();
+        mediumButton.remove();
+        easyButton.remove();
+        buttonsArea.css("opacity", "0")
     }
 
     function startGame() {
@@ -205,7 +220,7 @@ $(function () {
         }
         handDealCards();
         gameStarted = true;
-        scoreArea.css("background-color", buttonsArea.css("background-color"));
+        scoreArea.css("opacity", "1");
         timeStart = new Date().getTime();
         setTimeScore();
         movesScore--;
@@ -217,10 +232,10 @@ $(function () {
     }
 
     function gameOver() {
-        alert("You won!\nYou took " + timeScoreTime + "\n\nRestart to play again");
+        customAlert("You won!", "You took " + timeScoreTime + "\n\nRestart to play again");
     }
 
-    scoreArea.css("background-color", gameContainer.css("background-color"));
+    scoreArea.css("opacity", "0");
     generateCards(gameArea);
 
     // Deck
@@ -623,8 +638,6 @@ $(function () {
         topMargin = cardImageSize.height / 5;
         tableauTop = gameAreaBoundaries.top + cardImageSize.height + topMargin;
         tableauMaxCardPadding = cardImageSize.height / 4;
-        gameContainer.css("height", $(window).height() - 40);
-        gameArea.css("height", gameContainer.height() - (parseInt(gameArea.css("margin-top").replace("px", "")) + parseInt(gameArea.css("padding-top").replace("px", "")) + parseInt(gameArea.css("margin-bottom").replace("px", "")) + parseInt(gameArea.css("padding-bottom").replace("px", ""))) - scoreArea.height() - buttonsArea.height() + "px");
         for (var i = 0; i < tableaux.length; i++) {
             tableaux[i].setX(gameAreaBoundaries.left + (gameArea.width() / tableaux.length * (i + 0.5)));
         }

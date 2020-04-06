@@ -1,34 +1,44 @@
+<div class="alert">
+    <div class="alert__box">
+        <div class="alert__box__header">
+            <div class="alert__box__header__title">Alert</div>
+            <div class="alert__box__header__close" onclick="document.getElementsByClassName('alert')[0].classList.remove('alert--show');">x</div>
+        </div>
+        <div class="alert__box__text"></div>
+    </div>
+</div>
 <h1>
     BlueRok</h1>
 <input type="checkbox" id="navToggle">
 <nav>
-    <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="javascript:void(0)">Products</a>
-            <ul>
-                <li><a href="javascript:void(0)">Games</a>
-                    <ul>
-                        <li><a href="/products/Games/ballJump.html">Ball Jump</a></li>
-                        <li><a href="/products/Games/stickmenBattles.html">Stickmen Battles</a></li>
-                        <li><a href="javascript:void(0)">Cards</a>
-                            <ul>
-                                <li><a href="/products/Games/Cards/solitaire.html">Solitaire</a></li>
+    <ul class="navUl">
+        <li class="navUl__li"><a href="/index.html">Home</a></li>
+        <li class="navUl__li"><a href="javascript:void(0)">Products</a>
+            <ul class="navUl__sub  navUl__sub--down">
+                <li class="navUl__sub__li"><a href="javascript:void(0)">Games</a>
+                    <ul class="navUl__sub  navUl__sub--right">
+                        <li class="navUl__sub__li"><a href="/products/Games/ballJump.html">Ball Jump</a></li>
+                        <li class="navUl__sub__li"><a href="/products/Games/stickmenBattles.html">Stickmen Battles</a></li>
+                        <li class="navUl__sub__li"><a href="javascript:void(0)">Cards</a>
+                            <ul class="navUl__sub  navUl__sub--right">
+                                <li class="navUl__sub__li"><a href="/products/Games/Cards/solitaire.html">Solitaire</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0)">Other</a>
-                    <ul>
-                        <li><a href="/products/Other/easyType.html">Easy Type</a></li>
+                <li class="navUl__sub__li"><a href="javascript:void(0)">Other</a>
+                    <ul class="navUl__sub  navUl__sub--right">
+                        <li class="navUl__sub__li"><a href="/products/Other/easyType.html">Easy Type</a></li>
                     </ul>
                 </li>
             </ul>
         </li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+        <li class="navUl__li"><a href="/about.html">About</a></li>
+        <li class="navUl__li"><a href="/contact.html">Contact</a></li>
     </ul>
 </nav>
 <label for="navToggle" id="hamburger">
+    <div></div>
     <div></div>
     <div></div>
     <div></div>

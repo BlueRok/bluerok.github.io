@@ -3,8 +3,13 @@
 }
 
 .gameContainer {
+    --gameContainerHeight: calc(100vh - var(--headerHeight));
+    --gameHUDAreaHeight: 1.5em;
+    --gameButtonsAreaHeight: 2.5em;
+    --gameHUDAreaTransition: 1s;
     -webkit-touch-callout: none;
     user-select: none;
+    height: var(--gameContainerHeight);
 }
 
 #solitaireGame {
@@ -23,19 +28,25 @@
 
 .gameHUDArea,
 .gameButtonsArea {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
     background-color: rgba(200, 200, 200, 0.5);
+    transition-duration: var(--gameHUDAreaTransition);
+
 }
 
 .gameHUDArea {
-    height: 30px;
-    text-align: center;
-    display: flex;
-    font-family: fantasy;
-    font-size: 18px;
+    font-size: 1em;
+    height: var(--gameHUDAreaHeight);
+    line-height: var(--gameHUDAreaHeight);
+    opacity: 0;
 }
 
 #solitaireGame .gameArea {
     padding: 1.5%;
+    height: calc(var(--gameContainerHeight) - var(--gameHUDAreaHeight) - var(--gameButtonsAreaHeight));
 }
 
 #chessGame .gameArea {
@@ -56,19 +67,25 @@ div[class^="chessSquare"] {
 }
 
 .gameButtonsArea {
-    text-align: center;
+    height: var(--gameButtonsAreaHeight);
 }
 
 .gameButtonsArea button {
-    padding: 5px 15px;
     width: auto;
-    font-size: 25px;
+    min-width: 30%;
+    font-size: 1.2em;
+    opacity: 0;
+    height: 100%;
     text-align: center;
     border: none;
     border-radius: 15px;
     background-color: rgba(0, 100, 255, 0.6);
     color: white;
-    transition: 0.3s;
+    transition: opacity 0.3s ease;
+}
+
+button.gameButtonsVisible {
+    opacity: 1;
 }
 
 .gameButtonsArea button:hover {

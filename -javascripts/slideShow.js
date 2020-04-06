@@ -1,131 +1,71 @@
 $(function () {
-    var $sliderContainer = $(".sliderContainer"), $slidesContainer = $sliderContainer.find(".slidesContainer"), $slides, $bubblesContainer = $sliderContainer.find(".bubblesContainer"), $bubbles, $bubbleSelectedBackground, $bubbleSelectedBorder, interval, maxWidth = 854, minWidth = 534, width = maxWidth, animationSpeedSlide = 750, animationSpeedTitle = 500, animationSpeedTagline = 750, animationSpeedHide = 500, currentTime = 0, pause = 7000, currentSlide = 1;
-    function changeSlide(nextSlide) {
-        if (!$slidesContainer.is(':animated')) {
-            stopSlider();
-            currentTime = 0;
-            $(".slideTimer").css("width", width / pause * currentTime);
-            if (currentSlide === 1) {
-                $slides.eq($slides.length - 1).find(".side").find(".slideInfo").find("*").stop(true, true).hide(animationSpeedHide);
-                $slides.eq($slides.length - 1).find(".bottom").find(".slideInfo").find("*").stop(true, true).slideUp(animationSpeedHide);
-            }
-            $slides.eq(currentSlide - 1).find(".side").find(".slideInfo").find("*").stop(true, true).hide(animationSpeedHide);
-            $slides.eq(currentSlide - 1).find(".bottom").find(".slideInfo").find("*").stop(true, true).slideUp(animationSpeedHide);
-            $slidesContainer.animate({"marginLeft" : "-" + (width * (nextSlide - 1))}, animationSpeedSlide, function () {
-                if (nextSlide === $slides.length) {
-                    $slidesContainer.css("margin-left", 0);
-                    currentSlide = 1;
-                } else {
-                    $slidesContainer.css("margin-left", parseInt("-" + (width * (nextSlide - 1))));
-                    currentSlide = nextSlide;
-                }
-                if (currentSlide === 1) {
-                    showSlideInfo(".side", $slides.length - 1, 0);
-                    showSlideInfo(".bottom", $slides.length - 1, 0);
-                }
-                showSlideInfo(".side", currentSlide - 1, 0);
-                showSlideInfo(".bottom", currentSlide - 1, 0);
-                if (!$sliderContainer.is(":hover")) {
-                    startSlider();
-                }
-            });
-            $bubbles.css("background", "");
-            $bubbles.css("border", "");
-            var bubbleSelectedIndex = nextSlide - 1;
-            if (nextSlide === $slides.length) {
-                bubbleSelectedIndex = 0;
-            }
-            $bubbles[bubbleSelectedIndex].style.background = $bubbleSelectedBackground;
-            $bubbles[bubbleSelectedIndex].style.border = $bubbleSelectedBorder;
-        }
-    }
-    function initSlider() {
-        $sliderContainer.css("width", 100 + "%");
-        if ($sliderContainer.css("width").replace("px", "") > maxWidth) {
-            $sliderContainer.css("width", maxWidth);
-        } else if ($sliderContainer.css("width").replace("px", "") < minWidth) {
-            $sliderContainer.css("width", minWidth);
-        }
-        width = $sliderContainer.css("width").replace("px", "");
-        $sliderContainer.css("height", width * 0.626);
-    }
-    function startSlider() {
-        stopSlider();
-        initSlider();
-        interval = setInterval(function () {
-            currentTime+=10;
-            if (currentTime >= pause) {
-                changeSlide(currentSlide + 1);
-                currentTime = 0;
-            }
-            $(".slideTimer").css("width", width / pause * currentTime);
-        }, 10);
-    }
-    function stopSlider() {
-        clearInterval(interval);
-    }
-    function showSlideInfo(type, index, delay) {
-        if (type === ".side" || type === ".bottom") {
-            $slides.eq(index).find(type).find(".slideInfoTitle").delay(delay).slideDown(animationSpeedTitle);
-            if (type === ".side") {
-               $slides.eq(index).find(type).find(".slideInfoTagline").delay(delay + animationSpeedTitle).fadeIn(animationSpeedTagline);
-            }
-        }
-    }
-    
-    $(".sliderArrowLeft").on("click", function () {
-        var nextSlide = currentSlide - 1;
-        if (nextSlide === 0) {
-            $slidesContainer.css("margin-left", parseInt("-" + (width * ($slides.length - 1))));
-            nextSlide = $slides.length - 1;
-        }
-        changeSlide(nextSlide);
+    var $sliderContainer = $(".slideshow")
+    var $slidesContainer = $sliderContainer.find(".slideshow__slidesContainer")
+    var $bubblesContainer = $sliderContainer.find(".slideshow__bubblesContainer")
+    var $slides
+    var $bubbles
+    var $slideTimer = $sliderContainer.find(".slideshow__timer")
+    var slideDuration = $slideTimer.css("transition-duration")
+    slideDuration = parseFloat(slideDuration.substr(0, slideDuration.length - 1)) * 1000
+    var slideTransition = $($sliderContainer.find(".slideshow__slidesContainer__slide")[0]).css("transition-duration")
+    slideTransition = parseFloat(slideTransition.substr(0, slideTransition.length - 1)) * 1000
+    var slideTimeout
+    var currentSlide = 0
+
+    $sliderContainer.find(".slideshow__arrowLeft").on("click", function () {
+        changeSlide(currentSlide - 1);
     });
-    $(".sliderArrowRight").on("click", function () {
+    $sliderContainer.find(".slideshow__arrowRight").on("click", function () {
         changeSlide(currentSlide + 1);
     });
-    $(window).resize(function() {
-        var marginLeftPercentage = $slidesContainer.css("margin-left").replace("px", "") / width;
-        initSlider();
-        $slidesContainer.css("margin-left", width * marginLeftPercentage);
-    });
-    
-    for (var i = 0;i < $slidesContainer.find(".slide").length;i++) {
-        var bubble = "<div class=\"bubble\""
-        if (i === 0) {
-            bubble += " style=\"background: rgb(229, 229, 229); border: 1px solid blue;\"";
+
+    var bubblesHtml = ""
+    for (var i = 1; i <= $slidesContainer.find(".slideshow__slidesContainer__slide").length; i++) {
+        bubblesHtml += "<input type=\"radio\" name=\"bubble\" id=\"bubble" + i + "\""
+        if (i === 1) {
+            bubblesHtml += " checked"
         }
-        bubble += " data-number=\"" + (i + 1) + "\"></div>";
-        $bubblesContainer.append(bubble);
+        bubblesHtml += "><label for=\"bubble" + i + "\"></label>"
     }
-    $bubbles = $bubblesContainer.find(".bubble");
-    $bubbles.on("click", function () {
-        var index = parseInt($(this).attr("data-number"));
-        if (index != currentSlide) {
-            changeSlide(index);
+    $bubblesContainer.append(bubblesHtml)
+    $slidesContainer.append($slidesContainer.find(".slideshow__slidesContainer__slide")[0].outerHTML);
+    $slides = $slidesContainer.find(".slideshow__slidesContainer__slide")
+
+    $bubbles = $bubblesContainer.find("[id^=\"bubble\"]")
+    $bubbles.on("change", function () {
+        changeSlide($bubbles.index(this))
+    })
+
+    function changeSlide(idx) {
+        var $slide = $($slides[0])
+        if (currentSlide == 0) {
+            $slide.css("transition-duration", "0s")
+            $slide.css("margin-left", (idx >= currentSlide) ? "0px" : "calc(-" + $bubbles.length + " * " + $slide.css("width") + ")")
+            $slides[0].offsetHeight;
+            $slide.css("transition-duration", "")
         }
-    });
-    $bubbleSelectedBackground = $bubbles[0].style.background;
-    $bubbleSelectedBorder = $bubbles[0].style.border;
-    
-    var slideTagName = $slidesContainer.find(".slide")[0].tagName.toLowerCase;
-    var firstSlide = "<" + slideTagName + " class=\"slide\">" + $slidesContainer.find(".slide")[0].innerHTML + "</" + slideTagName + ">";
-    $slidesContainer.append(firstSlide);
-    $slides = $slidesContainer.find(".slide");
-    $slidesContainer.css("width", $slides.length * 100 + "%");
-    $slides.css("width", 100 / $slides.length + "%");
-    $slides.find(".slideInfo").find("*").hide();
-    
-    $sliderContainer.hover(function() {
-        stopSlider();
-    }, function() {
-        startSlider();
-    });
-    
-    initSlider();
-    startSlider();
-    showSlideInfo(".side", 0, 500);
-    showSlideInfo(".side", $slides.length - 1, 500);
-    showSlideInfo(".bottom", 0, 500);
-    showSlideInfo(".bottom", $slides.length - 1, 500);
+        currentSlide = (idx + $bubbles.length) % $bubbles.length
+        $($bubbles[currentSlide]).prop("checked", true);
+        $sliderContainer.find("*").css("pointer-events", "none")
+        $slides.removeClass("slideshow__slidesContainer__slide--current")
+        setTimeout(function () {
+            $sliderContainer.find("*").css("pointer-events", "")
+            $($slides[currentSlide]).addClass("current")
+            $($slides[idx]).addClass("slideshow__slidesContainer__slide--current")
+
+        }, slideTransition)
+
+        $slide.css("margin-left", -Math.max(idx, currentSlide) + "00%")
+        $slideTimer.css("transition-duration", "0s")
+        $slideTimer.removeClass("full")
+        $slides[0].offsetHeight;
+        $slideTimer.css("transition-duration", "")
+        $slideTimer.addClass("full")
+        clearTimeout(slideTimeout)
+        slideTimeout = setTimeout(function () {
+            changeSlide(currentSlide + 1)
+        }, slideDuration)
+    }
+
+    changeSlide(0)
 });

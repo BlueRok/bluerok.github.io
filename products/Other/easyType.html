@@ -3,65 +3,59 @@
 
 <head>
     <title>BlueRok</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/-stylesheets/general.css">
-    <link rel="stylesheet" type="text/css" href="/-stylesheets/slideShow.css">
+    <link rel="stylesheet" type="text/css" href="/-stylesheets/slideshow.css">
     <link rel="stylesheet" type="text/css" href="/-stylesheets/product.css">
     <script type="text/javascript" src="/-javascripts/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="/-javascripts/general.js"></script>
-    <script type="text/javascript" src="/-javascripts/slideShow.js"></script>
+    <script type="text/javascript" src="/-javascripts/slideshow.js"></script>
     <script type="text/javascript" src="/-javascripts/product.js"></script>
 </head>
 
 <body>
     <header></header>
-    <div id="content">
+    <main>
         <h1>Easy Type</h1>
-        <p><a class="productDownloadLink" href="/--Product_Executables/Other/Easy_Type/Easy_Type_Installer.jar" download onclick="productDownload(&quot;Easy_Type&quot;)">Download Easy Type</a></p>
+        <p><a class="productDownloadLink" href="/--Product_Executables/Other/Easy_Type/Easy_Type_Installer.jar" download onclick="productDownload('Easy_Type')">Download Easy Type</a></p>
         <p name=Easy_Type_downloads></p>
         <script>
             //productShowDownloads("Easy_Type");
-
         </script>
         <p>Easy Type is a simple yet easy to use text-editor! Its simple layout makes typing quick and effortless. There's even support for emojis in some fonts!</p>
-        <div class="sliderContainer">
-            <div class="bubblesContainer">
-                <div class="slideTimer"></div>
+        <div class="slideshow slideshow--bottom">
+            <div class="slideshow__timer"></div>
+            <div class="slideshow__bubblesContainer">
             </div>
-            <img class="sliderArrowLeft" src="/-images/general/sliderArrowLeft.png" />
-            <img class="sliderArrowRight" src="/-images/general/sliderArrowRight.png" />
-            <ul class="slidesContainer">
-                <li class="slide">
-                    <div class="bottom">
-                        <div class="slideImage"><img src="/-images/easyType/easyType_layout.png" />
+            <img class="slideshow__arrowLeft" src="/-images/general/sliderArrowLeft.png" />
+            <img class="slideshow__arrowRight" src="/-images/general/sliderArrowRight.png" />
+            <div class="slideshow__slidesContainer">
+                <div class="slideshow__slidesContainer__slide">
+                    <div class="slideshow__slidesContainer__slide__image"><img src="/-images/easyType/easyType_layout.png" />
                         </div>
-                        <div class="slideInfo">
-                            <span class="slideInfoTitle">Simple and easy to use layout!</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="slide">
-                    <div class="bottom">
-                        <div class="slideImage"><img src="/-images/easyType/easyType_files.png" />
-                        </div>
-                        <div class="slideInfo">
-                            <span class="slideInfoTitle">Open multiple files at once!</span>
+                        <div class="slideshow__slidesContainer__slide__info">
+                            <span class="slideshow__slidesContainer__slide__info__text">Simple and easy to use layout!</span>
                         </div>
                     </div>
-                </li>
-                <li class="slide">
-                    <div class="bottom">
-                        <div class="slideImage">
+                <div class="slideshow__slidesContainer__slide">
+                        <div class="slideshow__slidesContainer__slide__image"><img src="/-images/easyType/easyType_files.png" />
+                        </div>
+                        <div class="slideshow__slidesContainer__slide__info">
+                            <span class="slideshow__slidesContainer__slide__info__text">Open multiple files at once!</span>
+                        </div>
+                    </div>
+                <div class="slideshow__slidesContainer__slide">
+                        <div class="slideshow__slidesContainer__slide__image">
                             <img src="/-images/easyType/easyType_customize.png" />
                         </div>
-                        <div class="slideInfo">
-                            <span class="slideInfoTitle">Customize the layout to the way you want!</span>
+                        <div class="slideshow__slidesContainer__slide__info">
+                            <span class="slideshow__slidesContainer__slide__info__text">Customize the layout to the way you want!</span>
                         </div>
                     </div>
-                </li>
-            </ul>
+            </div>
         </div>
         <h2>Features</h2>
-        <ul class="features">
+        <ul class="productDetails">
             <li>Completely free</li>
             <li>Simple design</li>
             <li>Easy to use</li>
@@ -72,11 +66,11 @@
             <li>Easily give feedback</li>
         </ul>
         <h2>Requirements</h2>
-        <ul class="requirements">
+        <ul class="productDetails">
             <li>You only need JRE version 1.8 or higher, if you don't have it then download it from <a href="https://java.com/en/download/" target="_blank">here</a></li>
         </ul>
         <h2>Information</h2>
-        <ul class="information">
+        <ul class="productDetails productDetails--information">
             <li><strong>Developer:</strong> Rokesh Arumugam</li>
             <li name="Easy_Type_version"></li>
             <li name="Easy_Type_size"></li>
@@ -85,15 +79,12 @@
             <li><strong>Languages:</strong> English (UK)</li>
             <script>
                 productDescription($(".productDownloadLink").attr("href").split("/").slice(0, -1).join("/") + "/");
-
             </script>
         </ul>
         <h2>Installation</h2>
-        <ul class="installation">
+        <ul class="productDetails">
             <li>1. Double click on "Easy_Type_Installer.jar" and follow the instructions on screen.</li>
         </ul>
-        <footer></footer>
-    </div>
-</body>
-
-</html>
+    </main>
+    <footer></footer>
+</body></html>

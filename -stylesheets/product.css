@@ -1,38 +1,35 @@
-.features,
-.requirements,
-.information,
-.installation {
+.productDetails {
     margin: 30px 3.8%;
-    font-size: 20px;
+    font-size: 1em;
     font-family: Arial;
-    line-height: 35px;
+    line-height: 1.75em;
     text-align: center;
     list-style-type: none;
 }
 
-.information {
-    font-size: 25px;
-    line-height: 40px;
+.productDetails--information {
+    font-size: 1.3em;
+    line-height: 1.75em;
 }
 
 .productDownloadLink {
-    padding: 10px 5px 10px 5px;
+    display: block;
+    margin: auto;
+    width: 175px;
+    font-weight: 900;
+    font-size: 1.5em;
+    padding: 10px 5px;
     text-decoration: none;
     text-align: center;
     color: blue;
-    font-weight: bolder;
-    font-size: 25px;
-    display: inline-block;
-    width: 175px;
     background-color: rgb(0, 255, 0);
     border-radius: 25px;
-    border: 2px solid rgb(20, 255, 0);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
     transition: 0.4s;
-
 }
 
 .productDownloadLink:hover {
-    transform: scale(1.05, 1.05);
     color: blue;
-    background-color: rgb(0, 255, 255);
+    transform: scale(1.1, 1.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }

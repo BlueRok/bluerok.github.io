@@ -41,9 +41,9 @@ function productReadDownloads(productPath, callBack) {
     xhr_downloads.send(null);
 }
 
-function productDownload(productPath) {
-    alert(getProductName(productPath).replace("_", " ") + " will now start downloading.\nPlease read the INSTALL.txt or the installation instructions at the bottom of the page.");
-    autoScrollTimer(Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight) - document.documentElement.clientHeight);
+function productDownload(productName) {
+    customAlert("Downloading...", productName.replace("_", " ") + " has now started downloading.<br><br>Please read the INSTALL.txt or the installation instructions at the bottom of the page.");
+    document.getElementById("installationDetails").scrollIntoView()
     //productUpdateDownloads(productPath);
     //productShowDownloads(productPath);
 }

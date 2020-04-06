@@ -1,43 +1,124 @@
-fieldset {
-    margin: 30px 3.8%;
-    text-align: center;
+.form {
+    --inputTitleColor: lightblue;
+    --inputTitleTextColor: black;
+    --inputTextColor: blue;
+    --inputValidColor: lightgreen;
+    --inputInvalidColor: red;
+    --inputTransition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    padding: 1em;
+    max-width: 500px;
+    margin: auto;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 0px 0.25em rgba(0, 0, 0, 0.25);
+}
+
+.form__inputContainer {
+    position: relative;
+    width: 80%;
+    height: 4em;
+    background-color: white;
+    padding: 0.2em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+}
+
+.form__inputContainer--textarea {
+    height: 20em;
+}
+
+.form__inputContainer > * {
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+    padding-left: 0.25em;
+}
+
+.form__inputContainer__input {
+    background: none;
     border: none;
-    background-color: rgb(220, 220, 220);
+    outline: none;
+    padding-top: 1.25em;
+    color: var(--inputTextColor);
 }
 
-label {
-    transition: 0.5s;
+.form__inputContainer textarea {
+    padding-top: 1.85em;
+    resize: none;
 }
 
-input,
-textarea {
-    font-size: 20px;
+.form__inputContainer input + label {
+    position: absolute;
+    left: 0%;
+    pointer-events: none;
+    overflow: hidden;
 }
 
-input {
-    transition: ease-in-out 0.25s;
+.form__inputContainer input + label::before,
+.form__inputContainer input + label::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0.1em;
+    bottom: 0.7em;
+    border-radius: 1em;
 }
 
-input[name=forename] {
-    width: 275px;
+.form__inputContainer input + label::before {
+    left: 0%;
+    background-color: #ddd;
+    transition-duration: var(--inputTransition);
 }
 
-input[name=surname] {
-    width: 265px;
+.form__inputContainer input + label::after {
+    left: -100%;
+    background-color: var(--inputTitleColor);
+    transition-duration: var(--inputTransition);
 }
 
-input[name=emailAddress] {
-    width: 335px;
+.form__inputContainer__text {
+    position: absolute;
+    color: var(--inputTitleTextColor);
+    font-size: 1em;
+    left: 0.4em;
+    top: 1.85em;
+    height: auto;
+    transition-duration: var(--inputTransition);
 }
 
-input[name=confirmEmailAddress] {
-    width: 370px;
+.form__inputContainer__input:focus + label .form__inputContainer__text,
+.form__inputContainer__input:valid + label .form__inputContainer__text {
+    top: 0;
+    color: var(--inputTitleColor);
+    font-size: 0.9em;
 }
 
-input:focus {
-    width: 380px;
+.form__inputContainer.valid label .form__inputContainer__text {
+    color: var(--inputValidColor);
 }
 
-textarea[name=message] {
-    width: 95%;
+.form__inputContainer.invalid label .form__inputContainer__text {
+    color: var(--inputInvalidColor);
+}
+
+.form__inputContainer input:focus + label::after,
+.form__inputContainer input:valid + label::after {
+    left: 0%;
+}
+
+.form__buttonContainer {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form__buttonContainer button {
+    padding: 0.5em 2em;
+    font-size: 1.2em;
+    width: auto;
 }
